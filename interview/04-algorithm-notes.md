@@ -1,69 +1,92 @@
-# Algorithm Notes
+# 🚀 Algorithm CHEAT SHEET: PATTERNS & FUNCTIONS
 
 This file is a quick reminder for common interview data structures and patterns.
 
-## HashMap
+## 1. HashMap (The "State Manager")
+Use: Fast lookup (O(1)), tracking state by user/token/session.
+Key Functions:
+- getOrDefault(key, default): Perfect for counters or trackers.
+- putIfAbsent(key, val): Useful for initialization.
+- containsKey(key): Check for existence before processing.
 
-Use when you need:
-- fast lookup by key
-- state by user / token / session / request id
+Common Examples:
+- Token Manager: map.get(token) -> returns UserRecord.
+- Deduplicator: map.containsKey(requestId) -> skip if true.
+- Counter: map.put(id, map.getOrDefault(id, 0) + 1).
 
-Common examples:
-- token manager
-- session store
-- login failure tracker
-- request deduplicator
+---
 
-## Heap / Priority Queue
+## 2. Heap / Priority Queue (The "Ranker")
+Use: Smallest/largest element, Top K, merging sorted streams.
+Key Functions:
+- offer(val) / poll(): Add and remove the top priority item.
+- peek(): Inspect the top without removing.
+- Custom Comparator: (a, b) -> a.val - b.val (Min-Heap).
 
-Use when you need:
-- the smallest or largest current item
-- top k
-- merge multiple sorted sources
+Common Examples:
+- Log Merger: Keep the earliest timestamp from N server logs in a Min-Heap.
+- Top K Frequent: Use a Min-Heap of size K to keep the largest elements.
 
-Common examples:
-- merge logs from N servers
-- top k frequent elements
+---
 
-## Queue / Deque
+## 3. Queue / Deque (The "Window Tracker")
+Use: FIFO (First-In-First-Out), processing in order, time windows.
+Key Functions:
+- offerLast(val) / pollFirst(): Standard Queue operations.
+- peekFirst(): Check the oldest event in a time window.
 
-Use when you need:
-- remove old items from the front
-- process items in order
-- maintain a time window
+Common Examples:
+- Rate Limiter: Store request timestamps; remove those older than (now - window_size).
+- Retry Queue: Push failed webhooks to the back; process from the front.
 
-Common examples:
-- login failure tracker
-- rate limiter
-- webhook retry queue
+---
 
-## Sliding Window
+## 4. Sliding Window (The "Event Filter")
+Logic Pattern:
+1. add(right_item) to window.
+2. while (condition_violated): remove(left_item), left++.
+3. update_result().
 
-Use when the rule depends on:
-- recent events
-- time windows
-- fixed-size or moving windows
+Common Examples:
+- Login Failure Tracker: "Has this user failed 5 times in the last 10 minutes?"
 
-Common examples:
-- login failure tracker
-- API rate limiter
+---
 
-## Doubly Linked List
+## 5. Doubly Linked List + HashMap (LRU Cache)
+Use: O(1) removal and O(1) update of most/least recently used items.
+Key Functions:
+- moveToHead(node): Mark as recently used.
+- popTail(): Evict the oldest item when cache is full.
 
-Use when you need:
-- O(1) remove
-- O(1) insert
-- ordering that changes often
+---
 
-Common examples:
-- LRU cache
+# 🛠️ BACKEND OBJECT FIELDS & LOGIC
 
-## K-Way Merge
+## LogEntry
+- timestamp (Long): Primary sort key for heaps.
+- serverId (String): Source identifier.
+- message (String): Content.
 
-Idea:
-- if multiple sources are already sorted
-- do not sort everything again
-- keep one candidate from each source in a heap
+## RateLimitRecord
+- clientId (String): Target of the limit.
+- requestTimestamps (Queue<Long>): The window history.
+- Logic: while(q.peek() < now - 60s) q.poll(); return q.size() < limit;
 
-Common examples:
-- merge logs from N servers
+## SessionRecord
+- sessionId (String)
+- expiryTime (Long): Use to trigger clean-up.
+- isValid (Boolean): Quick revocation flag.
+
+## RequestRecord (Idempotency)
+- requestId (String): Unique key from client.
+- status (PENDING, COMPLETED, FAILED).
+- responsePayload (String): Cached response for duplicate requests.
+
+---
+
+## 💡 MENTAL TRIGGERS
+- Top K? -> Heap.
+- Recent X minutes? -> Deque + Sliding Window.
+- O(1) Lookup? -> HashMap.
+- Already Sorted? -> K-Way Merge (don't re-sort!).
+- Deduplication? -> Request ID in a Map.
