@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Backend Object Fields</title>
+    <style>
+      :root { --bg:#f6f1e7; --card:#fffdf9; --text:#23201c; --muted:#6e685f; --line:#ddd2bf; --accent:#2e6b5f; }
+      body { margin:0; font-family: Georgia, "Times New Roman", serif; background:linear-gradient(180deg,#f6f1e7,#fffdf8); color:var(--text); }
+      .wrap { max-width:940px; margin:0 auto; padding:42px 24px 64px; }
+      .back { color:var(--accent); text-decoration:none; font-weight:600; }
+      .hero { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; box-shadow:0 12px 26px rgba(91,76,56,.08); margin-bottom:18px; }
+      .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+      .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:0 10px 22px rgba(91,76,56,.06); }
+      h1,h2,h3 { margin-top:0; }
+      p, li { line-height:1.6; }
+      ul { margin: 10px 0 0 20px; }
+      .muted { color:var(--muted); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <a class="back" href="../index.html">← Back to home</a>
+      <div class="hero">
+        <h1>Backend Object Fields</h1>
+        <p class="muted">A simple cheat sheet for common backend objects and the fields they usually need.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>LogEntry</h3><ul><li>timestamp</li><li>message</li><li>serverId</li></ul></div>
+        <div class="card"><h3>LoginTracker</h3><ul><li>userId</li><li>failed timestamps</li><li>maybe lock-related state</li></ul></div>
+        <div class="card"><h3>SessionRecord</h3><ul><li>sessionId</li><li>userId</li><li>expiryTime</li><li>invalidated / active</li></ul></div>
+        <div class="card"><h3>TokenRecord</h3><ul><li>token</li><li>userId</li><li>expiryTime</li><li>revoked</li></ul></div>
+        <div class="card"><h3>RateLimitRecord</h3><ul><li>userId or clientId</li><li>request timestamps</li><li>window size</li><li>limit</li></ul></div>
+        <div class="card"><h3>RequestRecord</h3><ul><li>requestId</li><li>payload hash</li><li>createdAt</li><li>status</li></ul></div>
+        <div class="card"><h3>CacheNode</h3><ul><li>key</li><li>value</li><li>prev</li><li>next</li></ul></div>
+        <div class="card"><h3>HeapEntry</h3><ul><li>timestamp or priority</li><li>source / server index</li><li>item index</li><li>object reference if needed</li></ul></div>
+      </div>
+    </div>
+  </body>
+  </html>
