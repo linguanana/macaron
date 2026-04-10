@@ -1,0 +1,376 @@
+John Resume Question Bank
+
+Goal:
+- Help him answer resume and general questions more clearly
+- Keep answers short, structured, and not too rambling
+- Add a few AI-related questions that fit a backend engineer, not an ML engineer
+
+
+How he should answer
+
+Good default structure for most questions:
+1. Start with one-sentence summary
+2. Explain 2 or 3 important details
+3. End with impact or outcome
+
+Good length:
+- Usually 45 to 90 seconds
+- Do not start from the beginning of his life
+- Do not explain every tiny technical detail unless asked
+
+Good pattern:
+- Problem
+- What he did
+- Result
+
+If he talks too much:
+- Start with the headline first
+- Cut extra background
+- Give only the details needed to support the headline
+
+
+Extra General Questions
+
+These are extra general questions that are still grounded in his resume.
+
+1. What kind of work energizes you the most?
+
+What a good answer should sound like:
+- tie it to real work on the resume
+- mention 2 themes only
+- keep it positive and forward-looking
+
+Example answer:
+The work that energizes me most is backend work where I can combine implementation with real system impact. At Zoom, I especially enjoyed projects that improved reliability, automated workflows, or made backend systems easier to operate. I like work where there is both technical depth and a clear production outcome.
+
+
+2. What kind of team or environment helps you do your best work?
+
+What a good answer should sound like:
+- grounded in his past experience
+- not too personal or vague
+- mention collaboration, ownership, and clarity
+
+Example answer:
+I do my best work on teams where people communicate clearly, have strong ownership, and care about building reliable systems. I’ve found that I work especially well in environments where expectations are clear and engineers are trusted to improve both features and the underlying system.
+
+
+3. Looking back at your recent experience, what do you want to do more of in your next role?
+
+What a good answer should sound like:
+- should sound intentional
+- should connect to resume strengths
+- should not sound like he is running away from past work
+
+Example answer:
+In my next role, I’d like to do more backend platform and production-facing work, especially around distributed systems, APIs, reliability, and system design. My recent experience helped me realize that I really enjoy work where I can both build features and improve the long-term behavior of the system.
+
+
+1. Tell me about yourself.
+
+What a good answer should sound like:
+- 3 parts only:
+  - current / most recent role
+  - strongest technical themes
+  - what he is looking for next
+
+Example answer:
+I’m a backend engineer with experience at Zoom and Amazon, mostly working on distributed backend systems, APIs, and OAuth-related platform services. At Zoom, I worked on public APIs, OAuth workflows, production reliability, and storage migrations like moving scope data from S3 to MySQL. What I’m looking for next is a backend role where I can keep building scalable production systems and grow in system design and reliability.
+
+
+2. Walk me through your resume.
+
+What a good answer should sound like:
+- Go company by company
+- Spend most time on Zoom
+- Mention only 2 to 3 strongest bullets per role
+
+Example answer:
+I started as an intern at Amazon, where I worked on a distributed backend pipeline and built a plugin for publishing merchant contribution entities through SNS. After that I joined Zoom full-time, where I worked on Zoom Phone APIs and core OAuth platform components. My work there focused on backend reliability, workflow automation, observability, and a migration from S3 to MySQL to improve consistency and performance.
+
+
+3. Which project on your resume best represents your backend engineering skills?
+
+What a good answer should sound like:
+- Pick one project only
+- Explain why that project shows ownership, systems thinking, and impact
+
+Example answer:
+The project that best represents my backend engineering skills is the OAuth scope storage migration from S3 to MySQL. It required understanding the old design, identifying scaling and consistency limitations, changing the service layer, planning a safe rollout, and thinking about production impact. I like that example because it combines system design, implementation, and operational thinking.
+
+
+4. Can you walk me through the S3 to MySQL migration?
+
+What a good answer should sound like:
+- old system
+- why it was limiting
+- what changed
+- how rollout was handled
+
+Example answer:
+Originally the scope data lived in S3, which worked for simple storage but became limiting for query flexibility, consistency, and service behavior as the platform grew. I worked on moving that data into MySQL with a more structured schema, which improved access patterns and made the data model easier to manage in the services. We rolled it out in stages so we could validate behavior in production before fully switching over.
+
+
+5. Why was S3 not enough for that use case?
+
+What a good answer should sound like:
+- 2 or 3 clear limitations only
+
+Example answer:
+S3 was fine as basic object storage, but it was not a great fit for data that needed more structured access and stronger consistency in service logic. As the system evolved, query flexibility and update patterns became more important, and MySQL was a better fit for that kind of workload.
+
+
+6. What improved after moving to MySQL?
+
+What a good answer should sound like:
+- performance
+- consistency
+- service simplicity
+
+Example answer:
+The main improvements were lower lookup latency, better consistency across services, and a data model that was easier to work with in the application layer. It also made the backend behavior more predictable as the system scaled.
+
+
+7. How did you make sure the migration was safe?
+
+What a good answer should sound like:
+- staged rollout
+- validation
+- ability to monitor or revert
+
+Example answer:
+The main thing was to avoid a hard cutover. We rolled the change out in stages, verified behavior in production, and monitored the new path carefully before fully switching traffic. The goal was to reduce risk while still moving the system forward.
+
+
+8. Tell me about a production issue you debugged.
+
+What a good answer should sound like:
+- symptom
+- investigation
+- fix
+- prevention
+
+Example answer:
+One example was a recurring production issue affecting API reliability. I started by narrowing the problem with logs and service behavior, then worked backward through the request path to identify where things were failing in the distributed backend flow. After fixing the issue, we also improved visibility so it would be easier to detect and diagnose similar problems in the future.
+
+
+9. How do you usually debug distributed production issues?
+
+What a good answer should sound like:
+- not random
+- step-by-step
+
+Example answer:
+I usually start by identifying the user-visible symptom and the scope of impact. Then I use logs, dashboards, and service boundaries to narrow down whether the issue is in our service, a dependency, or a particular request path. Once I have a likely failure point, I validate the hypothesis with data instead of guessing.
+
+
+10. Tell me about your PagerDuty / on-call experience.
+
+What a good answer should sound like:
+- alerts
+- incident response
+- operational ownership
+
+Example answer:
+I built monitoring and alerting for OAuth services and participated in on-call rotations across related platform services. That work taught me how to think about production visibility, what signals are worth paging on, and how to respond quickly without overreacting to noise.
+
+
+11. What kinds of issues were important enough to alert on?
+
+What a good answer should sound like:
+- production impact
+- service health
+- not too abstract
+
+Example answer:
+The most important alerts were the ones that indicated real user or service impact, such as failures in critical flows, unhealthy service behavior, or issues that could affect platform reliability. The goal was to alert on meaningful production problems, not just every abnormal signal.
+
+
+12. Tell me about the OAuth workflow automation work.
+
+What a good answer should sound like:
+- what was manual before
+- what got automated
+- what changed operationally
+
+Example answer:
+There were workflows in the OAuth platform that involved a lot of manual coordination and multi-team dependencies. I worked on redesigning and automating parts of that process so the flow became much faster and less dependent on manual handling. That reduced turnaround time dramatically and made the overall process more scalable.
+
+
+13. What did you do for OAuth Client Credentials?
+
+What a good answer should sound like:
+- do not recite OAuth textbook
+- explain what changed and why it mattered
+
+Example answer:
+I worked on strengthening validation around the Client Credentials flow so the authorization behavior was more aligned with least-privilege access. The point was not just to support the flow, but to make sure the scope checks and service behavior were safer and more consistent.
+
+
+14. What did you do for Authorization Code with PKCE?
+
+What a good answer should sound like:
+- explain in product terms
+
+Example answer:
+I contributed to implementing Authorization Code with PKCE to support secure OAuth behavior for public clients. The important part was enabling the flow correctly and making sure the platform supported a more secure integration pattern for those applications.
+
+
+15. Tell me about the event-driven pipeline you built.
+
+What a good answer should sound like:
+- what event moved
+- why event-driven helped
+- what manual process it replaced
+
+Example answer:
+I built an internal event-driven pipeline to automate propagation of OAuth scope updates across services. Before that, parts of the workflow were more manual. Moving to a pub-sub style flow helped the system react more automatically and reduced operational overhead.
+
+
+16. Tell me about your Amazon internship project.
+
+What a good answer should sound like:
+- one clear story
+- not too many details
+
+Example answer:
+At Amazon I worked on a distributed backend workflow system and built a modular plugin that published merchant contribution entities through SNS. That helped downstream systems consume the data in a more scalable way and supported the team’s longer-term move toward more decoupled workflows.
+
+
+17. Why did the team use SNS?
+
+What a good answer should sound like:
+- decoupling
+- downstream consumption
+
+Example answer:
+SNS was useful because it let the system publish events in a way that downstream consumers could handle independently. That made the workflow more decoupled and more scalable than tighter service-to-service coupling.
+
+
+18. Why are you interested in this role?
+
+What a good answer should sound like:
+- tie role to his background
+- tie role to growth
+
+Example answer:
+I’m interested in this role because it matches the kind of backend work I’ve been doing and want to keep growing in, especially around distributed systems, APIs, and production engineering. I’m looking for a team where I can contribute to real backend systems while continuing to deepen my system design and reliability skills.
+
+
+19. Why are you interested in our company?
+
+What a good answer should sound like:
+- for big company: people / engineering culture / long-term growth
+- for smaller company: role fit / meaningful product / technical problem
+
+Big company example:
+Most people I know who have worked there have stayed for a long time, and that tells me it’s a strong place to work and grow. That kind of engineering culture is very attractive to me.
+
+Smaller company example:
+What interests me is less about brand name and more about the work itself. From what I’ve learned, the role seems strongly aligned with my background in backend systems, reliability, and production engineering.
+
+
+20. What are your strengths as an engineer?
+
+What a good answer should sound like:
+- 2 strengths only
+- support them with evidence
+
+Example answer:
+Two of my main strengths are backend debugging and ownership of production systems. A lot of my work at Zoom involved understanding distributed service behavior, improving reliability, and driving changes that made backend workflows more scalable and maintainable.
+
+
+21. What is one area you are still improving?
+
+What a good answer should sound like:
+- honest but not self-destructive
+- show improvement plan
+
+Example answer:
+One area I’m continuing to improve is communicating complex technical work more concisely in interview settings. In my day-to-day work I can go deep quickly, so I’ve been practicing how to start with the headline first and then add only the most relevant detail.
+
+
+22. Have you used AI tools in your work or learning?
+
+What a good answer should sound like:
+- practical
+- not hype
+
+Example answer:
+Yes, mostly as a productivity tool rather than something I rely on blindly. I’ve found AI useful for drafting boilerplate, exploring unfamiliar code, and getting a starting point for tests or implementation ideas, but I still verify everything carefully before trusting it in real code.
+
+
+23. What parts of AI tools have been genuinely useful for you?
+
+What a good answer should sound like:
+- 2 or 3 real use cases
+
+Example answer:
+The most useful parts for me have been speeding up repetitive coding tasks, helping me understand unfamiliar code patterns, and giving me a rough first draft when I want to compare possible approaches. I see it as an accelerator, not a replacement for engineering judgment.
+
+
+24. Where do you think AI tools are less helpful or less reliable?
+
+What a good answer should sound like:
+- correctness
+- security
+- production edge cases
+
+Example answer:
+I think AI tools become less reliable when correctness really matters, especially in production logic, security-sensitive code, or anything where subtle edge cases matter a lot. In those areas I would use them for ideas, but not as a source of truth.
+
+
+25. If you were integrating an LLM API into a backend service, what would you think about?
+
+What a good answer should sound like:
+- backend concerns, not ML theory
+
+Example answer:
+I would think about latency, retries, failure handling, rate limits, cost, logging, and data privacy. I would also think about what should happen if the model response is bad or delayed, because in production the integration needs to be reliable even if the model is not.
+
+
+26. What kind of work energizes you the most?
+
+What a good answer should sound like:
+- tie it to real work on the resume
+- mention 2 themes only
+- keep it positive and forward-looking
+
+Example answer:
+The work that energizes me most is backend work where I can combine implementation with real system impact. At Zoom, I enjoyed projects where I had to improve reliability, automate workflows, or change a backend design in a way that made the system cleaner and easier to operate. I like work where there is both technical depth and clear production value.
+
+
+27. What kind of team or environment helps you do your best work?
+
+What a good answer should sound like:
+- grounded in his past experience
+- not too personal or vague
+- mention collaboration, ownership, and clarity
+
+Example answer:
+I do my best work on teams where people have strong ownership, communicate clearly, and care about building reliable systems. I’ve enjoyed environments where I could work across backend services, debug production issues, and collaborate with others to improve systems over time. I usually do well when expectations are clear and the team values both feature work and operational quality.
+
+
+28. Looking back at your recent experience, what do you want to do more of in your next role?
+
+What a good answer should sound like:
+- should sound intentional
+- should connect to resume strengths
+- should not sound like he is running away from past work
+
+Example answer:
+In my next role, I’d like to do more backend platform and production-facing work, especially in areas like distributed systems, APIs, reliability, and system design. My recent experience helped me realize that I enjoy work where I not only implement features, but also improve the overall behavior and maintainability of the system.
+
+
+Quick coaching note for you
+
+If he answers too long, interrupt with:
+- What's the short version?
+- Start with the headline first.
+- Give me the 30-second version.
+- What was the problem, what did you do, and what changed?
+
+If he gets too technical too early, interrupt with:
+- Explain it at a high level first.
+- What is the most important point?
+- What should I remember from that answer?

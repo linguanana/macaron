@@ -1,0 +1,128 @@
+Interview Questions - 2026-04-10
+
+Goal for today:
+- 3 speaking questions
+- 1 coding question
+- focus on clarity, shorter answers, and understanding the problem before coding
+
+
+Speaking Question 1
+Tell me about yourself.
+
+What to look for:
+- 30 to 60 seconds
+- Zoom + Amazon
+- backend / distributed systems / APIs / OAuth
+- what he wants next
+
+Good structure:
+1. who I am
+2. what I worked on recently
+3. what I want next
+
+Sample shape:
+I’m a backend engineer with experience at Zoom and Amazon, mainly working on distributed backend systems, APIs, and OAuth-related services. At Zoom, I worked on backend reliability, workflow automation, and auth-related platform work. In my next role, I’m looking for a backend position where I can keep building production systems and grow further in system design and reliability.
+
+
+Speaking Question 2
+Tell me about a production issue you debugged.
+
+What to look for:
+- start with the symptom
+- explain how he narrowed it down
+- explain the fix
+- explain what changed afterward
+
+Good structure:
+1. symptom
+2. investigation
+3. root cause
+4. fix
+5. prevention / follow-up
+
+If he gets lost, ask:
+- What was the symptom first?
+- How did you narrow it down?
+- What was the actual fix?
+- What did you do so it would be easier to catch next time?
+
+
+Speaking Question 3
+Can you walk me through the S3 to MySQL migration?
+
+What to look for:
+- why S3 was not enough
+- what problem needed to be fixed
+- why MySQL helped
+- rollout / migration safety
+- result / impact
+
+Good structure:
+1. what the old system was
+2. what problems it caused
+3. why the new design was better
+4. how the migration was done safely
+5. impact
+
+If he gets lost, ask:
+- What was wrong with the original setup?
+- Why was MySQL a better fit here?
+- How did you avoid breaking production?
+
+
+Coding Question
+Login Failure Tracker
+
+Prompt:
+Please implement a login failure tracker.
+
+Support these operations:
+- recordFailure(userId, timestamp)
+- recordSuccess(userId)
+- isLocked(userId, timestamp)
+
+Rule:
+- if a user has 5 failed login attempts within a 10-minute window, the account is locked
+- a successful login resets the failure count
+
+
+Before writing code, tell me:
+1. what class or functions you need
+2. what data structure you will use
+3. what the flow of the solution is
+
+
+What good planning sounds like:
+- use a hashmap
+- key = userId
+- value = list or deque of failure timestamps
+- recordFailure adds a timestamp
+- recordSuccess clears the user state
+- isLocked removes old timestamps outside the 10-minute window, then checks whether at least 5 remain
+
+
+Hint ladder:
+1. What state do you need to store for each user?
+2. Do you need all historical failures, or only recent ones inside the 10-minute window?
+3. Think about the oldest failure first.
+4. Clean out old failures before checking the count.
+
+
+What to look for:
+- understands the problem before coding
+- picks a reasonable data structure
+- handles the 10-minute window correctly
+- does not mix up recent vs old failures
+- can explain the flow clearly
+
+
+Optional follow-up if he finishes:
+What test cases would you write?
+
+Expected test cases:
+- normal case
+- success resets failures
+- fewer than 5 failures
+- exactly 5 failures in the window
+- old failures outside the window should not count
+- user not found

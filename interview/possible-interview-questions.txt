@@ -1,0 +1,109 @@
+Possible Interview Questions
+
+This file is a master list of possible questions to use in future mock interviews.
+
+
+Speaking / General
+
+- Tell me about yourself.
+- Walk me through your resume.
+- What kind of backend work do you enjoy the most?
+- What are you looking for in your next role?
+- Why are you interested in this company?
+- What do you want interviewers to remember most about your background?
+
+
+Resume / Project Deep Dive
+
+- Can you walk me through the S3 to MySQL migration?
+- Why was S3 not a good fit?
+- Why was MySQL a better fit?
+- How did you migrate safely without breaking production?
+- What was the performance or reliability improvement?
+- Can you walk me through your OAuth-related work at Zoom?
+- What part of the OAuth platform did you own?
+- Can you explain one project where you had strong ownership?
+- What was the most technically difficult backend problem you worked on?
+- What project best represents your strengths?
+
+
+Production / Debugging / Reliability
+
+- Tell me about a production issue you debugged.
+- What was the symptom first?
+- How did you narrow it down?
+- What logs or metrics did you check first?
+- How did you identify the root cause?
+- What was the actual fix?
+- What did you change afterward to make the issue easier to catch next time?
+- Tell me about an on-call or PagerDuty incident you handled.
+- Tell me about a time reliability mattered more than shipping a feature quickly.
+
+
+Behavioral / Ownership
+
+- Tell me about a time you had to take ownership of something ambiguous.
+- Tell me about a time you disagreed with a technical decision.
+- Tell me about a time you made a mistake.
+- Tell me about a time you improved a system or process.
+- Tell me about a time you worked across teams.
+- Tell me about a time you had to prioritize under pressure.
+- Tell me about a time you improved developer efficiency or workflow.
+
+
+AI / Modern Workflow
+
+- Have you used AI tools in your work or learning?
+- What parts of AI tools have been genuinely useful to you?
+- Where do you think AI tools are less helpful or less reliable?
+- What engineering concerns would you have when integrating an LLM API into a backend service?
+- How would you use AI in a backend engineer workflow without relying on it blindly?
+- Tell me about a workflow where AI helps you save time.
+- What should be treated as source-of-truth instead of AI-generated output?
+- What is RAG in simple terms?
+
+
+Practical Coding Questions
+
+- Token Manager
+- Session Store
+- Login Failure Tracker
+- API Rate Limiter
+- Request Deduplicator
+- Webhook Retry Queue
+- Login Token Cleaner
+- Merge Logs from N Servers
+- LRU Cache
+- Top K Frequent Elements
+
+
+Auth / Backend-State Coding Questions
+
+- Implement a simple session store.
+- Implement a token validator with expiration and revocation.
+- Implement a login failure tracker with a time window.
+- Implement a per-user rate limiter.
+- Implement a request deduplicator for repeated API calls.
+- Implement a simple in-memory permissions / scope validator.
+
+
+Coding Follow-up Questions
+
+- What data structure will you use and why?
+- What class or functions do you need?
+- What fields should this object have?
+- What is the flow of your solution?
+- What is the time and space complexity?
+- What test cases would you write?
+- What edge cases are easy to miss?
+- What would you change if the input became very large?
+- What if this had to work across multiple servers?
+
+
+Best Questions To Reuse Often
+
+- Tell me about yourself.
+- Tell me about a production issue you debugged.
+- Can you walk me through the S3 to MySQL migration?
+- Login Failure Tracker
+- Session Store

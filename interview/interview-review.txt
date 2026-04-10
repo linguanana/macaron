@@ -1,0 +1,93 @@
+Interview Review
+
+
+John To Do:
+
+1. Practice explaining the problem before writing code.
+- Before coding, always say:
+  - what classes you need
+  - what fields each class should have
+  - what functions you need
+  - what data structure you will use
+  - what the flow of the solution is
+
+2. Make a small note for common backend objects and what fields they usually need.
+- Example notes to write:
+  - `LogEntry`
+    - timestamp
+    - message
+    - serverId
+  - `LoginTracker`
+    - userId
+    - failed timestamps
+    - maybe lock-related state if needed
+  - `SessionRecord`
+    - sessionId
+    - userId
+    - expiryTime
+    - invalidated / active state
+  - `TokenRecord`
+    - token
+    - userId
+    - expiryTime
+    - revoked
+
+3. Practice answering in shorter structure.
+- For speaking questions, try this pattern:
+  - background
+  - problem
+  - action
+  - result
+
+4. Practice one coding question again without hints.
+- Best choices:
+  - Login Failure Tracker
+  - Session Store
+
+
+Questions We Have Asked
+
+2026-04-08
+- Tell me about yourself.
+- Tell me about a production issue you debugged.
+- Token Manager
+- Top K Frequent Elements
+- LRU Cache
+- Merge Logs from N Servers
+- Login Failure Tracker
+
+2026-04-10
+- Tell me about yourself.
+- Tell me about a production issue you debugged.
+- Can you walk me through the S3 to MySQL migration?
+- Login Failure Tracker
+
+
+Question Types We Have Covered
+
+- Self introduction
+- Resume walkthrough / project deep dive
+- Production debugging
+- Auth / token / session state problems
+- Heap / frequency counting
+- Cache design
+- Merge sorted streams / logs
+- Sliding window / time-based state
+
+
+Review
+
+1. Strongest improvement
+- He is getting much better at understanding the problem before coding.
+- This is the biggest improvement compared with the earlier rounds.
+- He is more often stopping to think about classes, fields, functions, data structures, and flow before writing code.
+
+2. Main thing still to improve
+- He still needs to make the problem definition more precise.
+- In backend-style questions, he should be very clear about what each field means, what state needs to be stored, and what the rule actually is.
+- A lot of mistakes came from starting with the right idea but not making the state model precise enough.
+
+3. Current overall read
+- Speaking is improving, but he still needs shorter and cleaner structure.
+- Coding is better when the problem is practical and domain-based, especially auth / backend state problems.
+- Right now, understanding is becoming a strength, and that gives him a much better chance to pass once execution becomes a little cleaner.

@@ -1,0 +1,95 @@
+AI Engineering Project Vision
+
+The project I want to build is not just a chatbot and not just an AI tool that gives one-time answers.
+
+The goal is to build an AI engineering workflow where:
+
+1. I use AI while I work (or basically I guide him to work)
+- for debugging
+- for implementation help
+- for PR creation
+- for summarizing what was fixed
+
+2. After each task is done, I ask AI to write down what it learned in an `x.md` file(s) and also organize them inside my local repository
+(In fact you don't even have to tell him what to note. It knows :)
+- what the problem was
+- what we changed
+- what fixed it
+- what should be remembered next time
+
+3. Even better, after AI finishes all the steps for one task, 
+I ask AI to write python to retrieve all data needed first in a file .. (depends on your scenario.) 
+
+- instead of asking AI five separate follow-up questions
+- ask it one time to write the full note in a 1,2,3,4,5 format
+- this saves tokens
+- this also creates cleaner and more consistent memory
+
+4. That knowledge is not only kept inside one AI session
+- it is also written into a folder / repository
+- this makes the knowledge portable and reusable
+
+5. Those markdown files should also be organized into categories
+- not just dumped into one folder
+- for example: debugging, PRs, implementations, incidents, runbooks, test-cases
+- this makes the memory easier to search, reuse, and maintain over time
+
+6. Because the knowledge is stored outside the model, I can use different AI tools on top of it
+- ChatGPT
+- Gemini
+- other LLMs later
+
+7. Over time, the repository becomes an engineering memory system
+- after enough fixes, notes, and PRs are stored
+- the system becomes very powerful
+- future debugging and implementation become faster
+
+
+Result: The result I have today is that I can give it a task, step away for a bit, and by the time I come back, 
+it may already have six PRs ready across different repositories, assuming I’ve approved the permissions.
+
+
+The key idea is:
+
+This is not about asking AI for a magic answer.
+This is about turning everyday engineering work into reusable memory, 
+and then using AI to retrieve, organize, and apply that memory later.
+
+
+The value of the project is:
+
+- AI helps with the work
+- AI helps summarize the work
+- the work is saved into a repository
+- the repository is structured into categories
+- the repository becomes the source of truth
+- different LLMs can use the same repository
+
+In simple terms:
+
+The repository is the memory layer.
+The LLM is the reasoning layer.
+
+This means the knowledge is mine, not trapped inside one model or one chat session.
+
+What I want this project to do:
+
+- capture engineering knowledge from real work
+- save debugging and implementation memory into files
+- make the memory searchable
+- let AI answer questions based on that memory
+- make repeated engineering work faster over time
+
+This is the effect I want:
+
+- I debug something with AI
+- I finish the fix
+- I tell AI to remember it
+- it gets written into the repository
+- later I can ask the same repository questions again
+- not only with one model, but with ChatGPT, Gemini, or other LLMs
+
+This is why the project matters:
+
+It is not a one-time AI assistant.
+It is an AI-assisted engineering memory repository.

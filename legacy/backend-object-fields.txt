@@ -1,0 +1,114 @@
+Backend Object Fields
+
+This file is a simple cheat sheet for common backend objects.
+Before coding, review what the object represents and what fields it may need.
+
+
+LogEntry
+- timestamp
+- message
+- serverId
+
+What it represents:
+- one log event from one server
+
+Common use:
+- log merge questions
+- debugging / monitoring questions
+
+
+LoginTracker
+- userId
+- failed timestamps
+- maybe lock-related state if needed
+
+What it represents:
+- per-user login failure state
+
+Common use:
+- login failure tracker
+- sliding window auth questions
+
+
+SessionRecord
+- sessionId
+- userId
+- expiryTime
+- invalidated / active state
+
+What it represents:
+- one user session
+
+Common use:
+- session store
+- auth / backend state questions
+
+
+TokenRecord
+- token
+- userId
+- expiryTime
+- revoked
+
+What it represents:
+- one auth token and its validation state
+
+Common use:
+- token manager
+- OAuth / auth questions
+
+
+RateLimitRecord
+- userId or clientId
+- request timestamps
+- window size
+- limit
+
+What it represents:
+- request history or counters for rate limiting
+
+Common use:
+- API rate limiter
+- abuse protection questions
+
+
+RequestRecord
+- requestId
+- payload hash
+- createdAt
+- status
+
+What it represents:
+- one tracked request for deduplication or retry handling
+
+Common use:
+- request deduplicator
+- webhook retry queue
+
+
+CacheNode
+- key
+- value
+- prev
+- next
+
+What it represents:
+- one node in a doubly linked list for cache ordering
+
+Common use:
+- LRU cache
+
+
+HeapEntry
+- timestamp or priority
+- source index / server index
+- item index
+- object reference if needed
+
+What it represents:
+- one candidate item inside a heap
+
+Common use:
+- merge logs
+- k-way merge
+- priority queue questions

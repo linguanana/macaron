@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interview Prep</title>
+    <style>
+      :root {
+        --bg: #f7f4ee;
+        --card: #fffdf8;
+        --text: #1f1f1f;
+        --muted: #6b655f;
+        --line: #ddd4c8;
+        --accent: #2c6e62;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        background: linear-gradient(180deg, #f7f4ee 0%, #efe8dc 100%);
+        color: var(--text);
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 48px 24px 64px;
+      }
+
+      .hero {
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: 42px;
+        line-height: 1.1;
+      }
+
+      .intro {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 24px rgba(45, 38, 28, 0.06);
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 22px;
+      }
+
+      .card p {
+        margin: 0 0 14px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      ul {
+        margin: 8px 0 0 18px;
+        padding: 0;
+        color: var(--muted);
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      .footer {
+        margin-top: 32px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .small {
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section class="hero">
+        <h1>Interview Prep</h1>
+        <p class="intro">
+          This is a local HTML view for the interview prep repo. You can open
+          this file directly in a browser now, without GitHub Pages. It links
+          to the main prep notes, coding framework, object field cheat sheet,
+          algorithm notes, and interview history.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>General Questions</h2>
+          <p>
+            Core speaking questions for self-introduction, production stories,
+            and resume deep dives.
+          </p>
+          <a href="./interview/01-general-questions.md">Open 01-general-questions.md</a>
+        </article>
+
+        <article class="card">
+          <h2>Coding Framework</h2>
+          <p>
+            The fixed four-part structure to use before every coding question.
+          </p>
+          <ul>
+            <li>classes or functions</li>
+            <li>fields</li>
+            <li>data structure</li>
+            <li>flow</li>
+          </ul>
+          <p class="small">
+            <a href="./interview/02-coding-framework.md">Open 02-coding-framework.md</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Backend Object Fields</h2>
+          <p>
+            Quick reference for common backend objects like LogEntry,
+            LoginTracker, SessionRecord, TokenRecord, HeapEntry, and more.
+          </p>
+          <a href="./interview/03-backend-object-fields.md">Open 03-backend-object-fields.md</a>
+        </article>
+
+        <article class="card">
+          <h2>Algorithm Notes</h2>
+          <p>
+            Quick reminders for hashmap, heap, deque, sliding window, linked
+            list, and k-way merge.
+          </p>
+          <a href="./interview/04-algorithm-notes.md">Open 04-algorithm-notes.md</a>
+        </article>
+
+        <article class="card">
+          <h2>Interview History</h2>
+          <p>
+            Track what has already been asked, what question types are covered,
+            and what still needs work.
+          </p>
+          <a href="./interview/05-interview-history.md">Open 05-interview-history.md</a>
+        </article>
+
+        <article class="card">
+          <h2>Review and To Do</h2>
+          <p>
+            Action items, practice notes, and the current overall read on
+            progress.
+          </p>
+          <a href="./interview/interview-review.txt">Open interview-review.txt</a>
+        </article>
+      </section>
+
+      <section class="footer">
+        Open this file locally:
+        <code>/Users/nana/Documents/nana/mock/index.html</code>
+      </section>
+    </div>
+  </body>
+</html>

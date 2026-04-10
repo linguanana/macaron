@@ -1,0 +1,313 @@
+AI Project Detailed Plan
+
+Project name
+
+engineering-playbook-assistant
+
+
+Purpose
+
+The purpose of this project is to give him one real AI-assisted engineering experience that he can actually build, explain, and defend in interviews.
+
+Instead of only saying "I used AI tools for coding help," this project lets him show that he used AI as part of a structured engineering workflow:
+- capturing raw engineering notes
+- turning them into reusable playbook entries
+- saving them for future use
+- retrieving related past knowledge when similar problems come up
+
+The goal is not to build a large AI product.
+The goal is to build one small but complete workflow that shows practical AI usage, backend thinking, and engineering judgment.
+
+
+What he will build
+
+A small Python CLI app that:
+
+1. Takes raw engineering notes as input
+2. Uses an LLM to convert them into a structured playbook note
+3. Saves the note locally
+4. Lets the user search old notes
+5. Lets the user ask for related prior notes for a new problem
+
+
+Why this is the right project
+
+- It is realistic for a backend engineer
+- It is small enough to finish
+- It creates a real AI usage story
+- It is easy to explain in interviews
+- It is much better than saying "I asked ChatGPT to write code"
+
+
+What to tell him to do first
+
+Tell him:
+
+"Create a GitHub repo called engineering-playbook-assistant.
+The project only needs to be a CLI.
+Do not build a frontend.
+Focus on one complete workflow."
+
+
+Step 1: Create the repo
+
+Repo name:
+engineering-playbook-assistant
+
+Initial files:
+
+- README.md
+- requirements.txt
+- .env.example
+- app/main.py
+- app/models.py
+- app/storage.py
+- app/ai_client.py
+- app/prompts.py
+- app/search.py
+- playbook/notes/
+- samples/raw_note_1.txt
+- samples/raw_note_2.txt
+- tests/test_storage.py
+- tests/test_search.py
+
+
+Step 2: What the app should support
+
+Command 1:
+create
+
+Example:
+python app/main.py create --input samples/raw_note_1.txt
+
+What it does:
+- reads raw note text
+- sends it to AI
+- gets back structured fields
+- writes a markdown note into playbook/notes/
+
+
+Command 2:
+search
+
+Example:
+python app/main.py search "oauth stale data"
+
+What it does:
+- searches local saved notes by keyword
+- prints matching note titles and file names
+
+
+Command 3:
+suggest
+
+Example:
+python app/main.py suggest "I am debugging a token validation issue"
+
+What it does:
+- finds matching notes
+- passes them to AI
+- asks AI to summarize which old notes are relevant
+
+
+Step 3: The data model
+
+Each note should contain:
+
+- title
+- problem
+- solution
+- lessons_learned
+- tags
+- source_type
+- created_at
+
+
+Suggested saved note format
+
+Save each note as markdown:
+
+Filename example:
+2026-04-03-oauth-stale-read.md
+
+Content example:
+
+# OAuth stale-read issue
+
+## Problem
+One service path was still reading old scope data after a storage migration.
+
+## Solution
+Fixed the read path and added validation checks.
+
+## Lessons Learned
+- rollout paths must be consistent
+- logs were useful for isolating the bug
+
+## Tags
+oauth, debugging, storage, reliability
+
+## Source Type
+bug
+
+
+Step 4: Prompt to give the AI
+
+Use this exact prompt:
+
+"You are helping create a reusable engineering playbook note.
+Given the raw engineering notes below, generate:
+- title
+- problem
+- solution
+- lessons_learned
+- tags
+- source_type
+
+Keep the output concise, concrete, and engineering-focused.
+Do not invent details that are not supported by the note.
+
+Raw note:
+{raw_text}"
+
+
+Step 5: What files should do
+
+app/models.py
+- define PlaybookEntry dataclass
+
+app/storage.py
+- save note to markdown
+- load all notes from playbook/notes/
+
+app/ai_client.py
+- call the LLM API
+- keep it minimal
+
+app/prompts.py
+- store prompt templates
+
+app/search.py
+- simple keyword search over titles and content
+
+app/main.py
+- argparse CLI
+- route to create / search / suggest
+
+
+Step 6: What he should ask AI to help with
+
+Tell him to use AI for:
+- generating starter code for each file
+- improving the prompt
+- reviewing note format
+- generating test-case ideas
+
+Tell him not to use AI for:
+- blindly generating the whole project and pasting it
+- skipping understanding of the flow
+- pretending AI wrote everything correctly
+
+
+Good prompt for AI while building
+
+For models.py:
+"Write a simple Python dataclass called PlaybookEntry with fields title, problem, solution, lessons_learned, tags, source_type, and created_at."
+
+For storage.py:
+"Write a Python module that saves a PlaybookEntry as a markdown file and loads all markdown files from a notes folder."
+
+For search.py:
+"Write a simple keyword search function that ranks markdown notes by how many times the query terms appear."
+
+For main.py:
+"Write a Python argparse CLI with commands create, search, and suggest."
+
+For tests:
+"Write simple pytest tests for note save/load and keyword search."
+
+
+Step 7: First 3 days only
+
+Day 1
+- create repo
+- create folder structure
+- implement PlaybookEntry
+- implement save/load
+
+Day 2
+- add create command
+- add raw note samples
+- call AI and save generated note
+
+Day 3
+- add search command
+- test search on 3 to 5 notes
+
+That is already enough for an early demo.
+
+
+Step 8: What a sample raw note can look like
+
+raw_note_1.txt
+
+"We had an issue in the OAuth scope lookup flow. The service was still reading from the old storage path in one code path after the migration. We found it by checking logs and comparing service behavior. We updated the read path and added validation checks. The main lesson was that rollout paths need to be validated carefully."
+
+
+raw_note_2.txt
+
+"I was solving an LRU cache interview problem and kept getting confused about how to update recency in O(1). The solution was to combine a hashmap for lookup with a doubly linked list for ordering. The key lesson was to separate lookup and ordering responsibilities."
+
+
+Step 9: What success looks like after 1 week
+
+He should be able to demo:
+
+1. paste raw note
+2. AI generates structured output
+3. note is saved
+4. search returns old notes
+5. suggest returns a short useful summary
+
+
+Step 10: What he can say in interview
+
+Short answer:
+
+"I built a lightweight AI-assisted engineering playbook tool that turns raw debugging or implementation notes into reusable structured knowledge. The goal was to make AI useful beyond one-off coding help by capturing summaries, lessons learned, and searchable notes I could reuse later."
+
+Longer answer:
+
+"I wanted to use AI in a more structured way, so I built a small CLI tool that takes raw engineering notes, uses an LLM to summarize them into a consistent playbook format, stores them locally, and supports search and retrieval for future problems. I found AI most useful for summarization and knowledge organization, while keeping human review as the source of truth."
+
+
+Step 11: What interviewer follow-up he should be ready for
+
+- Why did you build this?
+- Why not just ask ChatGPT each time?
+- What did AI help with most?
+- What did you still have to verify yourself?
+- How would you improve it?
+- Why did you keep it as a CLI instead of making a web app?
+
+
+Step 12: What you should tell him
+
+Tell him:
+
+"Do not try to make this impressive by making it big.
+Make it impressive by making it complete."
+
+That means:
+- small scope
+- clear workflow
+- real demo
+- clear explanation
+
+
+Best final instruction for him
+
+"Build one small AI-assisted workflow that actually works.
+Do not build a fake product.
+Do not build a giant app.
+Build something you can demo and explain clearly."

@@ -1,0 +1,308 @@
+AI Project: Engineering Playbook Assistant
+
+Goal
+
+Help him build one real AI-related project in 1 to 2 weeks that:
+- is realistic for a backend engineer
+- shows actual AI usage, not just "I used ChatGPT sometimes"
+- gives him a clear story for interviews
+- is small enough to finish
+
+
+Project idea
+
+Build a lightweight AI-assisted Engineering Playbook Assistant.
+
+The project should do 3 things:
+1. Take a raw engineering task, bug, or coding problem
+2. Turn it into a structured playbook note
+3. Retrieve related notes later when a similar problem comes up
+
+In simple terms:
+- every time he solves something, he saves what happened
+- AI helps summarize the problem, solution, and lessons learned
+- next time, he can search or retrieve similar notes
+
+
+Why this is a good project
+
+- It is directly useful in real engineering work
+- It fits a backend engineer better than an ML-heavy project
+- It lets him talk about AI as part of a workflow, not just code generation
+- It shows judgment, structure, and product thinking
+- It is small enough to finish in 1 to 2 weeks
+
+
+What the project is
+
+Input:
+- raw notes from a coding task, bug, mock interview question, or implementation issue
+
+AI step:
+- summarize the raw notes into a clean playbook entry
+- suggest tags
+- extract reusable lessons
+
+Storage:
+- save the final note into a local playbook folder
+
+Retrieval:
+- given a new problem, return the most relevant old playbook notes
+
+
+Minimum version to build
+
+He only needs these features:
+
+1. Create note
+- input raw text
+- call AI to generate structured output
+- save to markdown or json
+
+2. Search notes
+- keyword-based search is enough for v1
+- optional: simple semantic search later
+
+3. Summarize matching notes
+- for a new problem, AI summarizes the most relevant past notes
+
+
+Recommended folder structure
+
+playbook-assistant/
+  README.md
+  app/
+    main.py
+    models.py
+    storage.py
+    ai_client.py
+    search.py
+    prompts.py
+  playbook/
+    notes/
+  samples/
+    raw_issue_1.txt
+    raw_issue_2.txt
+  tests/
+    test_storage.py
+    test_search.py
+  requirements.txt
+
+
+Recommended tech stack
+
+- Python
+- simple CLI first
+- local markdown or json storage
+- OpenAI API or any LLM API he is comfortable with
+
+Why this stack:
+- fast to build
+- easy to explain
+- easy to demo
+
+
+Suggested data model
+
+PlaybookEntry
+- title
+- problem
+- context
+- solution
+- lessons_learned
+- tags
+- created_at
+
+RawTaskInput
+- raw_text
+- source_type
+- optional metadata
+
+
+What the AI should generate
+
+Given raw engineering notes, generate:
+- title
+- short problem summary
+- short solution summary
+- key lessons
+- tags
+
+Example:
+
+Input raw note:
+"Had a bug in the OAuth scope lookup flow. The issue came from stale data in the old storage path. We traced it using logs and realized the service was still reading from the old source in one path. Fixed the read path and added validation checks."
+
+Generated output:
+- title: OAuth scope lookup stale-read issue
+- problem: stale data caused incorrect scope lookup behavior in one service path
+- solution: fixed the read path and added validation checks
+- lessons learned:
+  - rollout paths must be consistent
+  - logs were useful for isolating read-path behavior
+- tags:
+  - oauth
+  - debugging
+  - storage
+  - reliability
+
+
+Core workflow
+
+1. User runs CLI command
+2. Pastes or loads raw notes
+3. AI generates structured playbook entry
+4. User reviews and saves
+5. Entry is stored locally
+6. Later, user asks a new question
+7. Search returns relevant old notes
+8. AI summarizes what is most useful from those notes
+
+
+CLI examples
+
+Create a new note:
+- python main.py create --input samples/raw_issue_1.txt
+
+Search playbook:
+- python main.py search "oauth stale read issue"
+
+Summarize related notes:
+- python main.py suggest "I am debugging a token validation issue"
+
+
+Scope for week 1
+
+Day 1
+- Set up project structure
+- Create local playbook storage format
+- Define PlaybookEntry model
+
+Day 2
+- Build save/load note logic
+- Create 2 to 3 sample raw notes manually
+
+Day 3
+- Add AI summarization prompt
+- Generate structured playbook entry from raw text
+
+Day 4
+- Add basic CLI flow for create
+- Save generated note to local file
+
+Day 5
+- Add keyword search over notes
+- Return matching notes
+
+Scope for week 2
+
+Day 6
+- Add "suggest" command
+- AI summarizes top matching notes for a new problem
+
+Day 7
+- Clean up prompts
+- Improve note formatting
+
+Day 8
+- Add 3 to 5 tests
+- test save/load
+- test search
+- test note generation flow with mocked AI output
+
+Day 9
+- Write README
+- Add example screenshots or demo flow
+
+Day 10
+- Practice explaining the project out loud
+- Prepare short and long interview versions
+
+
+What he should actually demonstrate
+
+He does not need to make this fancy.
+
+He only needs to show:
+- I built a useful workflow
+- AI helped structure and retrieve knowledge
+- I treated AI as an assistant, not a source of truth
+- I thought about usability and engineering tradeoffs
+
+
+What tradeoffs he can talk about
+
+- markdown/json storage vs database
+- keyword search vs embeddings
+- AI summarization quality vs cost
+- local workflow simplicity vs full web app complexity
+- human review vs auto-save
+
+
+Good interview story
+
+Short version:
+
+I built a lightweight AI-assisted engineering playbook tool to turn raw engineering notes into reusable structured knowledge. The goal was to make AI useful beyond one-off coding help by capturing problem summaries, solutions, tags, and lessons learned that I could reuse later.
+
+Medium version:
+
+I wanted a more structured way to use AI in engineering work, so I built a small playbook assistant. It takes raw notes from debugging sessions or coding tasks, uses an LLM to summarize them into a reusable format, stores them locally, and lets me search or retrieve related notes later. What I found most useful was not code generation itself, but the ability to turn repeated work into reusable engineering knowledge. I kept the system simple with local storage and a CLI so I could finish it quickly and focus on the workflow.
+
+
+What questions interviewers may ask
+
+1. Why did you build this?
+Good answer:
+- I wanted a more repeatable workflow for using AI
+
+2. Why not just use ChatGPT directly every time?
+Good answer:
+- I wanted persistence and retrieval, not just one-off answers
+
+3. What did AI help with the most?
+Good answer:
+- summarization, structuring notes, tagging, retrieval support
+
+4. What did AI not do well?
+Good answer:
+- correctness still needed human review
+
+5. How would you improve it?
+Good answer:
+- embeddings, better ranking, better prompt quality, lightweight UI
+
+
+What not to do
+
+- do not make it too big
+- do not build a full frontend first
+- do not spend the whole time on vector DB or infra
+- do not claim it is production-ready if it is not
+
+
+What success looks like
+
+By the end of 1 to 2 weeks, he should have:
+- a working CLI project
+- at least 5 sample playbook notes
+- create/search/suggest flows working
+- a README
+- a clear interview story
+
+
+What you should ask him while he builds it
+
+- Why did you choose this storage model?
+- Why is this useful beyond just asking AI random questions?
+- What part did AI help with, and what part did you still verify yourself?
+- What would you improve if you had more time?
+- What is the most realistic engineering value of this project?
+
+
+Best final positioning
+
+This is not an AI research project.
+This is an AI-assisted engineering workflow project.
+
+That is exactly why it is a good fit for him.

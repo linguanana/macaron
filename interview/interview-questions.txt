@@ -1,0 +1,755 @@
+John Mock Interview Script
+
+Use this for 4 mock interviews.
+
+Each time:
+- 10 min: resume questions
+- 25 min: coding
+- 5 min: candidate asks you questions
+
+
+Standard answers at the end
+
+1. Do you have any questions for me?
+A: What does success look like in the first 3 to 6 months in this role?
+
+2. After the interviewer answers, candidate can say:
+A: That’s really helpful to hear. I’m excited by the chance to contribute in that kind of environment.
+
+3. Any other questions?
+A: No, that’s all from me. Thank you again for your time. I’m looking forward to hearing from you.
+因為 interviewers 也很累 所以你要謝謝他的時間 很加分
+
+
+4. Why are you interested in our company?
+
+Answer for a big company:
+most people I know who have worked there.
+[have stayed for a long time], and that tells me it’s a great company to work for and and a strong environment to grow in.
+
+    you can replace with 
+    - are very passionate about what they build
+    - care deeply about the work they do
+    - take a lot of pride in the products they build
+
+Answer for a smaller or less well-known company:
+What interests me is (less about brand name) and more about the work itself.
+From what I’ve learned, your team is solving meaningful problems, and the role seems very aligned with my background in backend systems, reliability, and production engineering.
+That combination is very attractive to me.
+
+
+========================================
+MOCK 1
+========================================
+
+What to say at the start:
+
+Hi John, thanks for joining.
+Today I will spend about 10 minutes asking about your resume and past work.
+Then we will spend about 25 minutes on one coding question.
+At the end, we will leave about 5 minutes for any questions you have for me.
+Feel free to think out loud as you work.
+
+
+Resume part: pick 3 to 5 of these
+
+Main questions:
+1. Can you walk me through your OAuth migration from S3 to MySQL?
+2. Tell me about the PagerDuty alerts or on-call work you did. What kinds of issues were important enough to alert on?
+3. Tell me about one production issue you debugged in your backend services. How did you narrow it down?
+4. Of the work on your resume, which project best shows your backend engineering skills, and why?
+
+Optional follow-up questions:
+- Why was S3 not enough for this use case?
+- What improved after moving to MySQL?
+- What problems were you trying to solve?
+- How did you make sure the migration was safe?
+- What signals told you something was wrong in production?
+- What made an alert important enough to page someone?
+- What logs or metrics did you usually look at first?
+- What part did you personally own?
+
+
+What good answers sound like
+
+- clear explanation
+- knows the tradeoffs
+- talks about safety and rollout
+- can explain monitoring or on-call in a concrete way
+- can walk through debugging step by step
+- talks like a backend engineer, not just support
+
+
+Coding question
+
+Problem: Token Manager
+
+中文說明給你看:
+
+這題很像簡化版的 auth / session 管理。
+重點不是難演算法，而是看對方能不能把需求整理清楚，然後用簡單資料結構寫乾淨。
+最直覺的做法就是用 hashmap。
+key 是 token，value 裡面存 userId、expiryTime、還有 revoked 狀態。
+validate 的時候就檢查三件事：
+- token 有沒有存在
+- 有沒有被 revoke
+- currentTime 有沒有小於 expiryTime
+
+這題你可以觀察：
+- 他會不會先定義資料結構
+- 會不會漏掉 edge case
+- 會不會把簡單題寫得很亂
+
+What to say:
+
+Now let's move to the coding part.
+Please implement a simple token manager.
+It should support:
+- issue(token, userId, expiryTime)
+- revoke(token)
+- validate(token, currentTime)
+
+A token is valid only if it exists, is not revoked, and currentTime is less than expiryTime.
+Please talk through your thinking as you go.
+
+
+Example:
+
+issue("t1", "u1", 100)
+validate("t1", 50) = true
+validate("t1", 100) = false
+revoke("t1")
+validate("t1", 60) = false
+
+
+If he gets stuck, say:
+
+- What information do you need to store for each token?
+- What data structure gives fast lookup by token?
+- In validate, what checks do you need to do?
+- How would you represent revoked state?
+
+
+If he finishes early, ask:
+
+- How would this change if multiple threads use it?
+- How would this change if tokens are stored in Redis?
+- How would revocation work across many servers?
+
+
+Closing:
+
+We have about 5 minutes left.
+What questions do you have for me?
+
+
+========================================
+MOCK 2
+========================================
+
+What to say at the start:
+
+Hi John, thanks for joining.
+Today I will spend about 10 minutes asking about your resume and incident handling experience.
+Then we will do about 25 minutes of coding.
+At the end, you can ask me questions.
+Please think out loud during the coding part.
+
+
+Resume part: pick 3 to 5 of these
+
+Main questions:
+1. Tell me about a production incident you handled.
+2. PagerDuty goes off and API latency suddenly spikes. What do you do first?
+3. How do you figure out whether the issue is your service or a downstream dependency?
+4. When do you decide to roll back?
+
+Optional follow-up questions:
+- What metrics would you check first?
+- What logs would you look at?
+- How do you separate mitigation from root-cause analysis?
+- Who would you communicate with during the incident?
+- After the incident is fixed, what should the RCA include?
+- How would you prevent the same issue from happening again?
+- What if the issue only affects one customer or one region?
+
+
+What good answers sound like
+
+- checks impact first
+- uses logs and metrics
+- thinks step by step
+- knows mitigation first, root cause second
+
+
+Coding question
+
+Problem: Top K Frequent Elements
+
+中文說明給你看:
+
+這題是很常見的 backend / LeetCode 題。
+意思是先算每個數字出現幾次，再找出出現次數最高的前 k 個。
+最常見做法是兩步：
+- 先用 hashmap 算 frequency
+- 再用 heap 找 top k
+
+你可以把它想成：
+先做統計，再做排序或篩選。
+
+這題你可以觀察：
+- 他會不會先把問題拆成兩步
+- 知不知道 heap 是適合拿來找 top k 的
+- 可不可以講出如果資料很大、是 streaming，該怎麼調整
+
+What to say:
+
+Now let's do the coding part.
+Given an integer array and an integer k, return the k most frequent elements.
+You can return the answer in any order.
+Please first explain your approach, then write the code.
+
+
+Example:
+
+nums = [1,1,1,2,2,3], k = 2
+Output = [1,2]
+
+
+If he gets stuck, say:
+
+- Can you count the frequency of each number first?
+- After that, how do you get the top k efficiently?
+- What kind of heap might help here?
+- Is there another solution besides a heap?
+
+
+If he finishes early, ask:
+
+- What if this is a streaming system?
+- What if the data is very large and split across many machines?
+- When would you choose heap vs bucket sort?
+
+
+Closing:
+
+We have a few minutes left.
+What questions do you have for me?
+
+
+========================================
+MOCK 3
+========================================
+
+What to say at the start:
+
+Hi John, thanks for joining.
+We will spend about 10 minutes on your past backend work and 25 minutes on coding.
+Then we will leave the last 5 minutes for your questions.
+Please talk through your thinking as much as you can.
+
+
+Resume part: pick 3 to 5 of these
+
+Main questions:
+1. Can you walk me through your Amazon internship project?
+2. What problem was the plugin solving?
+3. Why did the team use SNS?
+4. What does decoupling mean in that system?
+
+Optional follow-up questions:
+- What did you learn from working on a high-throughput backend system?
+- What was difficult about integrating the plugin into existing services?
+- Why was an event-driven approach useful here?
+- What would break if this component failed?
+- Which part of the project did you personally own?
+- How did reliability or performance requirements affect your design?
+- What tradeoffs did the team make?
+
+
+What good answers sound like
+
+- explains the system simply
+- understands why event-driven design helps
+- can talk about scale and reliability
+- answers clearly without going in circles
+
+
+Coding question
+
+Problem: LRU Cache
+
+中文說明給你看:
+
+LRU 的意思是 least recently used，就是最近最少使用。
+如果 cache 滿了，就要把最久沒被用到的資料刪掉。
+
+這題難的地方不是規則，而是資料結構。
+標準做法是：
+- hashmap: 快速找到某個 key
+- doubly linked list: 快速更新誰最近用過、誰最久沒用
+
+如果對方一開始不知道怎麼做，你就慢慢提示他：
+- 先想怎麼 O(1) 找到 key
+- 再想怎麼 O(1) 更新使用順序
+
+這題你可以觀察：
+- 他有沒有認出這是經典題
+- 會不會用對資料結構
+- pointer / edge case 會不會亂掉
+
+What to say:
+
+Now let's move to coding.
+Suppose we have a small in-memory cache for recent API results.
+When the cache is full, we want to evict the least recently used item.
+Please implement an LRU cache.
+You need to support get(key) and put(key, value).
+Both operations should be O(1).
+Please talk through your thinking as you go.
+
+
+Example:
+
+LRUCache(2)
+put(1,1)
+put(2,2)
+get(1) = 1
+put(3,3)
+get(2) = -1
+
+
+If he gets stuck, say:
+
+- What data structure gives you O(1) lookup?
+- How do you keep track of which item was used most recently?
+- Can you use a hashmap and a doubly linked list?
+- Which item should be removed when capacity is full?
+
+
+If he finishes early, ask:
+
+- How would you make this thread-safe?
+- What bugs usually happen in LRU cache code?
+
+
+Closing:
+
+We are almost out of time.
+What questions do you have for me?
+
+
+========================================
+PRACTICAL CODING BANK
+========================================
+
+Use these when you want coding questions that feel more like real backend work and less like pure LeetCode.
+
+
+----------------------------------------
+1. Login Failure Tracker
+----------------------------------------
+
+What to say:
+
+Now let's move to coding.
+Please implement a login failure tracker.
+Support these operations:
+- recordFailure(userId, timestamp)
+- recordSuccess(userId)
+- isLocked(userId, timestamp)
+
+Rule:
+- if a user has 5 failed login attempts within a 10-minute window, the account is locked
+- a successful login resets the failure count
+
+
+中文說明給你看:
+
+這題其實是在考 sliding window 跟 state management。
+不像純演算法題，但很像真實 login / auth backend 邏輯。
+重點是：
+- 每個 user 要存什麼狀態
+- 怎麼清掉過期的 failure
+- success 之後怎麼 reset
+
+這題你可以觀察：
+- 他會不會先想 user -> failure timestamps
+- 會不會處理時間窗口
+- 會不會把邏輯寫太亂
+
+
+What good answers sound like:
+
+- uses hashmap keyed by userId
+- stores timestamps in queue / deque / list
+- removes old timestamps before checking lock condition
+- keeps logic simple
+
+
+If he gets stuck, say:
+
+- What state do you need to store per user?
+- Do you need all historical failures, or only recent ones?
+- What data structure is good for removing old timestamps from the front?
+
+
+----------------------------------------
+2. Session Store
+----------------------------------------
+
+What to say:
+
+Please implement a simple in-memory session store.
+Support:
+- createSession(sessionId, userId, expiryTime)
+- validateSession(sessionId, currentTime)
+- invalidateSession(sessionId)
+- extendSession(sessionId, newExpiryTime)
+
+A session is valid only if it exists, is not invalidated, and currentTime is less than expiryTime.
+
+
+中文說明給你看:
+
+這題跟 token manager 很像，但更貼近真實 session backend。
+重點是 state modeling，不是難演算法。
+
+這題你可以觀察：
+- 他能不能很快定義 session record
+- validate 的順序會不會正確
+- invalidate / extend 會不會寫乾淨
+
+
+What good answers sound like:
+
+- hashmap from sessionId to record
+- record contains userId, expiryTime, invalidated flag
+- validate checks existence, invalidated, expiry
+
+
+If he gets stuck, say:
+
+- What fields do you need for each session?
+- What data structure gives fast lookup by sessionId?
+- What is the correct check order in validate?
+
+
+----------------------------------------
+3. API Rate Limiter
+----------------------------------------
+
+What to say:
+
+Please implement a simple per-user rate limiter.
+Support:
+- allowRequest(userId, timestamp)
+
+Rule:
+- each user can make at most 3 requests in any 10-second window
+- return true if allowed, false otherwise
+
+
+中文說明給你看:
+
+這題是在考 sliding window + per-user state。
+非常像 backend interview 題，而且比單純 LeetCode 更實務。
+可以看他有沒有想到：
+- userId -> timestamps
+- 清掉過期 request
+- 再判斷目前可不可以進來
+
+
+What good answers sound like:
+
+- hashmap keyed by userId
+- queue / deque of timestamps
+- removes old entries before counting current window
+
+
+If he gets stuck, say:
+
+- What do you need to remember for each user?
+- Do old requests outside the window still matter?
+- How can you efficiently remove expired timestamps?
+
+
+----------------------------------------
+4. Request Deduplicator
+----------------------------------------
+
+What to say:
+
+Please implement a request deduplicator for an API service.
+Support:
+- process(requestId, timestamp)
+
+Rule:
+- if the same requestId appears again within 30 seconds, ignore it and return false
+- otherwise accept it and return true
+
+
+中文說明給你看:
+
+這題很像實際後端處理 duplicate requests。
+重點在：
+- requestId -> last seen timestamp
+- 怎麼判斷是不是 duplicate
+- 要不要清理過期資料
+
+這題不是很難，但很好看他 state 管理有沒有清楚。
+
+
+What good answers sound like:
+
+- hashmap from requestId to last seen timestamp
+- compares current timestamp with last seen
+- may discuss cleanup strategy if map grows indefinitely
+
+
+If he gets stuck, say:
+
+- What is the minimum information you need to store per requestId?
+- How do you decide whether the new request is a duplicate?
+- If the map keeps growing, how might you clean it up?
+
+
+----------------------------------------
+5. Webhook Retry Queue
+----------------------------------------
+
+What to say:
+
+Please implement a simple webhook retry manager.
+Support:
+- addFailedEvent(eventId, nextRetryTime)
+- getReadyEvents(currentTime)
+- markDelivered(eventId)
+
+Behavior:
+- getReadyEvents(currentTime) should return all failed events whose retry time is ready
+
+
+中文說明給你看:
+
+這題比較像 queue / scheduling 類的 backend 題。
+它不是純算法，而是看他怎麼建模「待重試事件」。
+標準做法通常會想到：
+- min-heap by nextRetryTime
+- maybe a map if he also wants quick lookup by eventId
+
+
+What good answers sound like:
+
+- min-heap ordered by nextRetryTime
+- pops ready events while heap top is ready
+- may add map for delivered / deleted status
+
+
+If he gets stuck, say:
+
+- What data structure helps you always get the earliest retry first?
+- Do you need to inspect every event, or only the earliest one?
+- How would you handle an event that was already delivered?
+
+
+----------------------------------------
+6. Login Token Cleaner
+----------------------------------------
+
+What to say:
+
+Please implement a token cleaner.
+Support:
+- addToken(tokenId, expiryTime)
+- isValid(tokenId, currentTime)
+- cleanupExpired(currentTime)
+
+Behavior:
+- cleanupExpired should remove all expired tokens
+
+
+中文說明給你看:
+
+這題也是 practical backend state management。
+如果他只用 hashmap，也可以做。
+如果他想到 heap + map 的組合，會更強。
+
+
+What good answers sound like:
+
+- basic solution: hashmap + full scan cleanup
+- stronger solution: hashmap + min-heap by expiryTime
+- understands tradeoff between simple implementation and cleanup cost
+
+
+If he gets stuck, say:
+
+- What data structure is enough for isValid?
+- If cleanupExpired must be efficient, what should you sort by?
+- Can one data structure solve both lookup and cleanup efficiently?
+
+
+----------------------------------------
+7. Recommended Order
+----------------------------------------
+
+If you want easier practical questions first:
+- Session Store
+- Login Failure Tracker
+- API Rate Limiter
+
+If you want slightly stronger backend signal:
+- Webhook Retry Queue
+- Login Token Cleaner
+
+If you want the easiest question for tomorrow:
+- Session Store
+
+If you want the most realistic auth-related one:
+- Login Failure Tracker
+
+
+========================================
+MOCK 4
+========================================
+
+What to say at the start:
+
+Hi John, thanks for joining.
+We will spend about 10 minutes on your backend and production experience, then about 25 minutes on a coding question.
+At the end, we will leave a few minutes for your questions.
+Please explain your thinking as you go.
+
+
+Resume part: pick 3 to 5 of these
+
+Main questions:
+1. Tell me about a time you had to reason across multiple services to debug an issue.
+2. How do you usually use logs and metrics together when debugging production problems?
+3. What kinds of backend problems are harder when systems are distributed across many services?
+4. Tell me about a project where ordering, consistency, or correctness really mattered.
+
+Optional follow-up questions:
+- How do you decide which signals are useful and which are noise?
+- What makes logs actually useful during an incident?
+- Have you ever had to debug data that arrived out of order or from many sources?
+- How would you explain a debugging strategy to a teammate?
+- How do you validate that data ordering is correct?
+- What if two services disagree on timing or event order?
+
+
+What good answers sound like
+
+- thinks clearly about debugging across multiple services
+- understands logs, ordering, and correctness
+- explains tradeoffs simply
+- can connect the problem to real backend systems
+
+
+Coding question
+
+Problem: Merge Logs from N Servers
+
+中文說明給你看:
+
+這題本質就是 merge k sorted lists。
+只是這裡不是 linked list，而是很多台 server 的 log list。
+每一台 server 自己的 log 都已經照 timestamp 排好了。
+你現在要把很多個已排序的小 list，合成一個大的排序結果。
+
+標準做法是 min-heap。
+因為你每次都只需要知道「現在最小的下一筆 log 是誰」。
+做法是：
+- 先把每台 server 的第一筆丟進 heap
+- pop 最小的那筆
+- 再把那台 server 的下一筆放進 heap
+- 一直做到全部處理完
+
+這題你可以觀察：
+- 他有沒有看出這是多路 merge
+- 知不知道 priority queue / min-heap
+- 能不能講出時間複雜度 O(N log K)
+- follow-up 時能不能想到 memory、streaming、test case
+
+What to say:
+
+Now let's move to coding.
+You have N servers.
+Each server produces log entries in timestamp order.
+So each individual server log list is already sorted.
+Please merge all server logs into one globally sorted log stream.
+
+Each log entry has:
+- timestamp
+- message
+- serverId
+
+Please first describe the scenario and data structure you want to use.
+Then write the code.
+At the end, write test cases to show your solution works.
+
+
+Example:
+
+Server 0:
+[0, "start", 0], [1, "process", 0], [4, "end", 0]
+
+Server 1:
+[1, "start", 1], [2, "process-1", 1], [6, "process-2", 1], [7, "end", 1]
+
+Server 2:
+[6, "process", 2], [9, "end", 2]
+
+Merged:
+[0, ...], [1, ...], [1, ...], [2, ...], [4, ...], [6, ...], [6, ...], [7, ...], [9, ...]
+
+
+If he gets stuck, say:
+
+- Is each individual server log already sorted?
+- If you had only 2 sorted lists, how would you merge them?
+- What changes when you have many sorted lists?
+- What data structure helps you always get the smallest next timestamp?
+- What extra information do you need in the heap besides the timestamp?
+
+
+Follow-up:
+
+What if there are too many servers, but each server only has a small number of logs?
+
+What you want to hear:
+
+- still use a min-heap in most cases
+- heap size depends on active servers, not total logs
+- do not load everything into memory if not needed
+- may mention batching or lazy loading if streams are remote
+
+Simple way for you to ask it:
+
+What if there are a huge number of servers, but each server only has a few logs?
+Would you still use the same data structure?
+How would you keep memory under control?
+
+
+Test cases you can ask for:
+
+- normal case with 3 servers
+- no servers
+- some empty server lists
+- duplicate timestamps
+- only 1 server
+- many servers with 1 log each
+
+
+If he finishes early, ask:
+
+- What if logs are too large to fit in memory?
+- What if logs come in as a stream instead of all at once?
+- What if you need stable ordering when timestamps are equal?
+
+
+Closing:
+
+We are almost out of time.
+What questions do you have for me?
