@@ -25,17 +25,59 @@
       <a class="back" href="../index.html">← Back to home</a>
       <div class="hero">
         <h1>Backend Object Fields</h1>
-        <p class="muted">A simple cheat sheet for common backend objects and the fields they usually need.</p>
+        <p class="muted">A simple cheat sheet for common backend objects, their fields, and the logic they usually carry.</p>
       </div>
       <div class="grid">
-        <div class="card"><h3>LogEntry</h3><ul><li>timestamp</li><li>message</li><li>serverId</li></ul></div>
-        <div class="card"><h3>LoginTracker</h3><ul><li>userId</li><li>failed timestamps</li><li>maybe lock-related state</li></ul></div>
-        <div class="card"><h3>SessionRecord</h3><ul><li>sessionId</li><li>userId</li><li>expiryTime</li><li>invalidated / active</li></ul></div>
-        <div class="card"><h3>TokenRecord</h3><ul><li>token</li><li>userId</li><li>expiryTime</li><li>revoked</li></ul></div>
-        <div class="card"><h3>RateLimitRecord</h3><ul><li>userId or clientId</li><li>request timestamps</li><li>window size</li><li>limit</li></ul></div>
-        <div class="card"><h3>RequestRecord</h3><ul><li>requestId</li><li>payload hash</li><li>createdAt</li><li>status</li></ul></div>
-        <div class="card"><h3>CacheNode</h3><ul><li>key</li><li>value</li><li>prev</li><li>next</li></ul></div>
-        <div class="card"><h3>HeapEntry</h3><ul><li>timestamp or priority</li><li>source / server index</li><li>item index</li><li>object reference if needed</li></ul></div>
+        <div class="card">
+          <h3>LogEntry</h3>
+          <ul><li>timestamp</li><li>message</li><li>serverId</li></ul>
+          <p><strong>Logic:</strong> Used as the base object in a Min-Heap for K-Way Merging. Sort by <code>timestamp</code> ascending.</p>
+        </div>
+        <div class="card">
+          <h3>LoginTracker</h3>
+          <ul><li>userId</li><li>failed timestamps</li><li>maybe lock-related state if needed</li></ul>
+          <p><strong>Logic:</strong> <code>isLocked()</code> returns whether the current time is before <code>lockUntil</code>. <code>recordFailure(now)</code> adds the new timestamp and can update the lock state.</p>
+        </div>
+        <div class="card">
+          <h3>SessionRecord</h3>
+          <ul><li>sessionId</li><li>userId</li><li>expiryTime</li><li>invalidated / active</li></ul>
+          <p><strong>Logic:</strong> <code>isValid()</code> checks active state and expiry. <code>refresh(duration)</code> extends the session.</p>
+        </div>
+        <div class="card">
+          <h3>TokenRecord</h3>
+          <ul><li>token</li><li>userId</li><li>expiryTime</li><li>revoked</li></ul>
+          <p><strong>Logic:</strong> Used for auth validation, expiry checks, and revocation handling.</p>
+        </div>
+        <div class="card">
+          <h3>RateLimitRecord</h3>
+          <ul><li>userId or clientId</li><li>request timestamps</li><li>window size</li><li>limit</li></ul>
+          <p><strong>Logic:</strong> Slide the window by removing old timestamps, then check whether the request can still be allowed.</p>
+        </div>
+        <div class="card">
+          <h3>RequestRecord</h3>
+          <ul><li>requestId</li><li>payload hash</li><li>createdAt</li><li>status</li></ul>
+          <p><strong>Logic:</strong> Track whether a request is pending, completed, or already processed to support deduplication and idempotency.</p>
+        </div>
+        <div class="card">
+          <h3>CacheNode</h3>
+          <ul><li>key</li><li>value</li><li>prev</li><li>next</li></ul>
+          <p><strong>Logic:</strong> <code>detach()</code> removes the node from the list. <code>promote()</code> moves it to the head for LRU-style usage.</p>
+        </div>
+        <div class="card">
+          <h3>HeapEntry</h3>
+          <ul><li>timestamp or priority</li><li>source / server index</li><li>item index</li><li>object reference if needed</li></ul>
+          <p><strong>Logic:</strong> After polling the top item, use the source and item index to fetch the next candidate from that same stream.</p>
+        </div>
+        <div class="card">
+          <h3>RetryTask</h3>
+          <ul><li>taskId</li><li>payload</li><li>retryCount</li><li>nextRunTime</li></ul>
+          <p><strong>Logic:</strong> Use exponential backoff to schedule the next retry and stop after a max retry limit.</p>
+        </div>
+        <div class="card">
+          <h3>DistributedLock</h3>
+          <ul><li>lockKey</li><li>ownerId</li><li>ttl</li></ul>
+          <p><strong>Logic:</strong> Acquire the lock only if it does not exist, and release it safely only if the caller still owns it.</p>
+        </div>
       </div>
     </div>
   </body>

@@ -23,14 +23,51 @@
       <a class="back" href="../index.html">← Back to home</a>
       <div class="hero">
         <h1>Algorithm Notes</h1>
-        <p class="muted">Quick reminders for common patterns that keep showing up in backend-style coding questions.</p>
+        <p class="muted">Quick reminders for common interview data structures, patterns, and mental triggers.</p>
       </div>
-      <div class="section"><h2>HashMap</h2><p>Use when you need fast lookup by key or state by user / token / session / request id.</p></div>
-      <div class="section"><h2>Heap / Priority Queue</h2><p>Use when you need the smallest or largest current item, top-k, or k-way merge.</p></div>
-      <div class="section"><h2>Queue / Deque</h2><p>Use when you need to remove old items from the front or maintain a time window.</p></div>
-      <div class="section"><h2>Sliding Window</h2><p>Use when the rule depends on recent events, time windows, or moving counts.</p></div>
-      <div class="section"><h2>Doubly Linked List</h2><p>Use when ordering changes often and you need O(1) insert / remove.</p></div>
-      <div class="section"><h2>K-Way Merge</h2><p>If multiple sources are already sorted, keep one candidate from each source in a heap instead of sorting everything again.</p></div>
+      <div class="section">
+        <h2>1. HashMap (The State Manager)</h2>
+        <p>Use for fast lookup and state tracking by user, token, session, request id, or client id.</p>
+        <p><strong>Key Functions:</strong> <code>getOrDefault</code>, <code>putIfAbsent</code>, <code>containsKey</code>.</p>
+        <p><strong>Common Examples:</strong> Token Manager, Deduplicator, Counters.</p>
+      </div>
+      <div class="section">
+        <h2>2. Heap / Priority Queue (The Ranker)</h2>
+        <p>Use when you need the smallest or largest current item, Top K, or merging sorted streams.</p>
+        <p><strong>Key Functions:</strong> <code>offer / poll</code>, <code>peek</code>, custom comparator.</p>
+        <p><strong>Common Examples:</strong> Log Merger, Top K Frequent Elements.</p>
+      </div>
+      <div class="section">
+        <h2>3. Queue / Deque (The Window Tracker)</h2>
+        <p>Use when events are processed in order or when you need to remove old items from the front.</p>
+        <p><strong>Key Functions:</strong> <code>offerLast / pollFirst</code>, <code>peekFirst</code>.</p>
+        <p><strong>Common Examples:</strong> Rate Limiter, Retry Queue, Login Failure Tracker.</p>
+      </div>
+      <div class="section">
+        <h2>4. Sliding Window (The Event Filter)</h2>
+        <p><strong>Logic Pattern:</strong></p>
+        <ol>
+          <li>add the new item</li>
+          <li>while the condition is violated, remove old items</li>
+          <li>update the result</li>
+        </ol>
+        <p><strong>Common Example:</strong> Login Failure Tracker.</p>
+      </div>
+      <div class="section">
+        <h2>5. Doubly Linked List + HashMap</h2>
+        <p>Use when you need O(1) lookup and O(1) reordering.</p>
+        <p><strong>Common Example:</strong> LRU Cache.</p>
+      </div>
+      <div class="section">
+        <h2>Mental Triggers</h2>
+        <ul>
+          <li>Top K? → Heap</li>
+          <li>Recent X minutes? → Deque + Sliding Window</li>
+          <li>O(1) lookup? → HashMap</li>
+          <li>Already sorted? → K-Way Merge</li>
+          <li>Deduplication? → Request ID in a Map</li>
+        </ul>
+      </div>
     </div>
   </body>
   </html>
