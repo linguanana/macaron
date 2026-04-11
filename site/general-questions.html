@@ -13,9 +13,11 @@
       h1,h2,h3 { margin-top:0; }
       h1 { font-size:32px; }
       h2 { font-size:22px; }
+      h3 { font-size:18px; }
       p, li { line-height:1.65; font-size:15px; }
       ul, ol { margin: 10px 0 0 22px; }
       .muted { color:var(--muted); }
+      .tag { display:inline-block; margin-bottom:10px; padding:4px 9px; border-radius:999px; background:#f1eadf; color:#7a684f; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
     </style>
   </head>
   <body>
@@ -23,39 +25,79 @@
       <a class="back" href="../index.html">← Back to home</a>
       <div class="hero">
         <h1>General Questions</h1>
-        <p class="muted">Use these for speaking practice. The goal is shorter, clearer structure, not long wandering answers.</p>
+        <p class="muted">Use this page to practice structured speaking answers. The goal is not just to memorize. The goal is to build a repeatable answer pattern.</p>
       </div>
+
       <div class="section">
+        <span class="tag">Most Important</span>
         <h2>1. Tell me about yourself.</h2>
-        <p><strong>What to look for:</strong> 30 to 60 seconds, Zoom + Amazon, backend / distributed systems / APIs / OAuth, and what he wants next.</p>
-        <p><strong>Good structure:</strong></p>
+        <p><strong>What to memorize:</strong> one short opening sentence.</p>
+        <p><strong>Example opening:</strong> I’m a backend engineer with experience at Zoom and Amazon, mainly working on distributed backend systems, APIs, and OAuth-related services.</p>
+        <p><strong>How to structure the answer:</strong></p>
         <ol>
-          <li>who I am</li>
-          <li>what I worked on recently</li>
-          <li>what I want next</li>
+          <li>current / most recent role</li>
+          <li>strongest technical themes</li>
+          <li>what you want next</li>
         </ol>
       </div>
+
       <div class="section">
-        <h2>2. Tell me about a production issue you debugged.</h2>
-        <p><strong>What to look for:</strong> symptom, investigation, root cause, fix, follow-up / prevention.</p>
+        <span class="tag">Most Important</span>
+        <h2>2. Tell me about an issue you handled.</h2>
+        <p><strong>What to memorize:</strong> start with the symptom or problem.</p>
+        <p><strong>Example opening:</strong> One example was an issue that affected reliability, and I handled it by narrowing down the scope first before jumping into a fix.</p>
+        <p><strong>How to structure the answer:</strong></p>
+        <ol>
+          <li>what the issue was</li>
+          <li>how you investigated it</li>
+          <li>what the root cause was</li>
+          <li>what you changed</li>
+        </ol>
         <p><strong>Helpful follow-ups:</strong></p>
         <ul>
           <li>What was the symptom first?</li>
           <li>How did you narrow it down?</li>
-          <li>What was the fix?</li>
+          <li>What was the actual fix?</li>
           <li>What changed afterward?</li>
         </ul>
       </div>
+
       <div class="section">
+        <span class="tag">Most Important</span>
         <h2>3. Can you walk me through the S3 to MySQL migration?</h2>
-        <p><strong>What to look for:</strong> why S3 was not enough, what problem needed to be fixed, why MySQL helped, rollout / migration safety, and result / impact.</p>
-        <p><strong>Helpful follow-ups:</strong></p>
+        <p><strong>How to structure the answer:</strong></p>
+        <ol>
+          <li>what the old system was</li>
+          <li>what problem it caused</li>
+          <li>why MySQL was better</li>
+          <li>how the migration was done safely</li>
+          <li>impact</li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <h2>Additional Important Questions</h2>
         <ul>
-          <li>What was wrong with the original setup?</li>
-          <li>Why was MySQL a better fit here?</li>
-          <li>How did you avoid breaking production?</li>
+          <li>Walk me through your resume.</li>
+          <li>Which project on your resume best represents your backend engineering skills?</li>
+          <li>Why was S3 not enough for that use case?</li>
+          <li>What improved after moving to MySQL?</li>
+          <li>How did you make sure the migration was safe?</li>
+          <li>How do you usually debug distributed issues?</li>
+          <li>Tell me about your PagerDuty / on-call experience.</li>
+          <li>Tell me about the OAuth workflow automation work.</li>
+          <li>Tell me about the event-driven pipeline you built.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>AI-Related Questions</h2>
+        <ul>
+          <li>Have you used AI tools in your work or learning?</li>
+          <li>What parts of AI tools have been genuinely useful to you?</li>
+          <li>Where do you think AI tools are less helpful or less reliable?</li>
         </ul>
       </div>
     </div>
   </body>
-  </html>
+</html>
