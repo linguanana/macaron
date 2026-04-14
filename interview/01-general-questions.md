@@ -190,6 +190,83 @@ Example answer:
 I built an internal event-driven pipeline to automate propagation of OAuth scope updates across services. Before that, parts of the workflow were more manual. Moving to a pub-sub style flow helped the system react more automatically and reduced operational overhead.
 
 
+### Tell me about your Amazon internship project.
+
+How to structure the answer:
+1. one clear project
+2. what you built
+3. why it mattered
+
+Example answer:
+At Amazon I worked on a distributed backend workflow system and built a modular plugin that published merchant contribution entities through SNS. That helped downstream systems consume the data in a more scalable way and supported the team’s longer-term move toward more decoupled workflows.
+
+
+### Why did the team use SNS?
+
+How to structure the answer:
+1. what needed to be shared
+2. why decoupling helped
+3. why it scaled better
+
+Example answer:
+SNS was useful because it let the system publish events in a way that downstream consumers could handle independently. That made the workflow more decoupled and more scalable than tighter service-to-service coupling.
+
+
+### Why are you interested in this role?
+
+How to structure the answer:
+1. tie role to your background
+2. tie role to what you want to grow in
+3. keep it forward-looking
+
+Example answer:
+I’m interested in this role because it matches the kind of backend work I’ve been doing and want to keep growing in, especially around distributed systems, APIs, and production engineering. I’m looking for a team where I can contribute to real backend systems while continuing to deepen my system design and reliability skills.
+
+
+### Why are you interested in our company?
+
+How to structure the answer:
+1. team or engineering culture
+2. product or problem space
+3. why it fits your background
+
+Example answer:
+What stands out to me is the combination of the engineering work and the team. From what I’ve learned so far, this role feels strongly aligned with my background in backend systems, APIs, and production reliability, and it seems like the kind of environment where I could contribute and keep growing.
+
+
+### What kind of work energizes you the most?
+
+How to structure the answer:
+1. mention 1 or 2 themes only
+2. tie them to real work
+3. keep it positive
+
+Example answer:
+The work that energizes me most is backend work where I can combine implementation with real system impact. At Zoom, I especially enjoyed projects that improved reliability, automated workflows, or made backend systems easier to operate.
+
+
+### What kind of team or environment helps you do your best work?
+
+How to structure the answer:
+1. communication
+2. ownership
+3. clarity
+
+Example answer:
+I do my best work on teams where people communicate clearly, have strong ownership, and care about building reliable systems. I’ve found that I work especially well in environments where expectations are clear and engineers are trusted to improve both features and the underlying system.
+
+
+### Looking back at your recent experience, what do you want to do more of in your next role?
+
+How to structure the answer:
+1. connect to strengths
+2. say what you want more of
+3. keep it positive
+
+Example answer:
+In my next role, I’d like to do more backend platform and production-facing work, especially around distributed systems, APIs, reliability, and system design. My recent experience helped me realize that I really enjoy work where I can both build features and improve the long-term behavior of the system.
+
+
 ## AI-Related Questions
 
 ### Have you used AI tools in your work or learning?
@@ -223,3 +300,15 @@ How to structure the answer:
 
 Example answer:
 I think AI tools are less reliable in situations where correctness matters a lot, especially in production logic, security-sensitive code, or areas with subtle edge cases. In those cases, I see them as useful for generating ideas or a starting point, but not as a source of truth.
+
+
+### If you were integrating an LLM API into a backend service, what would you think about?
+
+How to structure the answer:
+1. latency and failure handling
+2. rate limits and cost
+3. logging and privacy
+4. fallback if the response is bad
+
+Example answer:
+I would think about latency, retries, failure handling, rate limits, cost, logging, and data privacy. I would also think about what should happen if the model response is slow, incorrect, or unavailable, because in production the integration needs to be reliable even if the model is not.
