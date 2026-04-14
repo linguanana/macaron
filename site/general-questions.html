@@ -18,6 +18,10 @@
       ul, ol { margin: 10px 0 0 22px; }
       .muted { color:var(--muted); }
       .tag { display:inline-block; margin-bottom:10px; padding:4px 9px; border-radius:999px; background:#f1eadf; color:#7a684f; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+      .qa { padding-top:10px; margin-top:14px; border-top:1px solid var(--line); }
+      .answer { background:#f8f3ea; border:1px solid #e6dac8; border-radius:14px; padding:14px 16px; margin-top:12px; }
+      .answer strong { color:#5b4a38; }
+      .question-list { margin-top:12px; }
     </style>
   </head>
   <body>
@@ -39,6 +43,10 @@
           <li>strongest technical themes</li>
           <li>what you want next</li>
         </ol>
+        <div class="answer">
+          <strong>Example answer:</strong>
+          <p>I’m a backend engineer with experience at Zoom and Amazon, mainly working on distributed backend systems, APIs, and OAuth-related services. At Zoom, I worked on public APIs, OAuth workflows, production reliability, and storage migrations like moving scope data from S3 to MySQL. What I’m looking for next is a backend role where I can keep building scalable production systems and grow in system design and reliability.</p>
+        </div>
       </div>
 
       <div class="section">
@@ -60,6 +68,10 @@
           <li>What was the actual fix?</li>
           <li>What changed afterward?</li>
         </ul>
+        <div class="answer">
+          <strong>Example answer:</strong>
+          <p>One example was an issue that affected reliability in a backend flow. I started by narrowing down the symptom using logs and service behavior, then traced the request path to identify where the failure was happening. After confirming the root cause, I fixed the issue and also improved visibility so similar problems would be easier to detect and diagnose in the future.</p>
+        </div>
       </div>
 
       <div class="section">
@@ -73,38 +85,196 @@
           <li>how the migration was done safely</li>
           <li>impact</li>
         </ol>
+        <div class="answer">
+          <strong>Example answer:</strong>
+          <p>Originally the scope data lived in S3, which worked for basic storage but became limiting as the platform grew. It was not a great fit for more structured access patterns and service-side consistency. I worked on moving that data into MySQL with a more structured schema, and we rolled it out in stages so we could validate behavior safely in production before fully switching over.</p>
+        </div>
       </div>
 
       <div class="section">
         <h2>Additional Important Questions</h2>
-        <ul>
-          <li>Walk me through your resume.</li>
-          <li>Which project on your resume best represents your backend engineering skills?</li>
-          <li>Why was S3 not enough for that use case?</li>
-          <li>What improved after moving to MySQL?</li>
-          <li>How did you make sure the migration was safe?</li>
-          <li>How do you usually debug distributed issues?</li>
-          <li>Tell me about your PagerDuty / on-call experience.</li>
-          <li>Tell me about the OAuth workflow automation work.</li>
-          <li>Tell me about the event-driven pipeline you built.</li>
-          <li>Tell me about your Amazon internship project.</li>
-          <li>Why did the team use SNS?</li>
-          <li>Why are you interested in this role?</li>
-          <li>Why are you interested in our company?</li>
-          <li>What kind of work energizes you the most?</li>
-          <li>What kind of team or environment helps you do your best work?</li>
-          <li>Looking back at your recent experience, what do you want to do more of in your next role?</li>
-        </ul>
+        <div class="qa">
+          <h3>Walk me through your resume.</h3>
+          <p><strong>Structure:</strong> company by company, spend most time on Zoom, mention only 2 or 3 strongest bullets per role.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>I started as an intern at Amazon, where I worked on a distributed backend workflow system and built a plugin for publishing merchant contribution entities through SNS. After that I joined Zoom full-time, where I worked on Zoom Phone APIs and core OAuth platform components. My work there focused on backend reliability, workflow automation, observability, and a migration from S3 to MySQL to improve consistency and performance.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Which project on your resume best represents your backend engineering skills?</h3>
+          <p><strong>Structure:</strong> pick one project, explain ownership, technical depth, and impact.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>The project that best represents my backend engineering skills is the OAuth scope storage migration from S3 to MySQL. It required understanding the old design, identifying scaling and consistency limitations, changing the service layer, planning a safe rollout, and thinking about production impact. I like that example because it combines system design, implementation, and operational thinking.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Why was S3 not enough for that use case?</h3>
+          <p><strong>Structure:</strong> what S3 was doing, what limitations appeared, why those limitations mattered.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>S3 was fine as basic object storage, but it was not a great fit for data that needed more structured access and stronger consistency in service logic. As the system evolved, query flexibility and update patterns became more important, and MySQL was a better fit for that kind of workload.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>What improved after moving to MySQL?</h3>
+          <p><strong>Structure:</strong> performance, consistency, and service simplicity.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>The main improvements were lower lookup latency, better consistency across services, and a data model that was easier to work with in the application layer. It also made the backend behavior more predictable as the system scaled.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>How did you make sure the migration was safe?</h3>
+          <p><strong>Structure:</strong> avoid hard cutover, rollout in stages, validate and monitor.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>The main thing was to avoid a hard cutover. We rolled the change out in stages, verified behavior in production, and monitored the new path carefully before fully switching traffic. The goal was to reduce risk while still moving the system forward.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>How do you usually debug distributed issues?</h3>
+          <p><strong>Structure:</strong> start with user-visible symptom, narrow scope, use logs and dashboards, validate with data.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>I usually start by identifying the user-visible symptom and the scope of impact. Then I use logs, dashboards, and service boundaries to narrow down whether the issue is in our service, a dependency, or a particular request path. Once I have a likely failure point, I validate the hypothesis with data instead of guessing.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Tell me about your PagerDuty / on-call experience.</h3>
+          <p><strong>Structure:</strong> what services you supported, what alerting work you did, what you learned operationally.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>I built monitoring and alerting for OAuth services and participated in on-call rotations across related platform services. That work taught me how to think about production visibility, what signals are worth paging on, and how to respond quickly without overreacting to noise.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Tell me about the OAuth workflow automation work.</h3>
+          <p><strong>Structure:</strong> what was manual before, what got automated, what changed operationally.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>There were workflows in the OAuth platform that involved a lot of manual coordination and multi-team dependencies. I worked on redesigning and automating parts of that process so the flow became much faster and less dependent on manual handling. That reduced turnaround time dramatically and made the overall process more scalable.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Tell me about the event-driven pipeline you built.</h3>
+          <p><strong>Structure:</strong> what event moved, why event-driven helped, what manual process it replaced.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>I built an internal event-driven pipeline to automate propagation of OAuth scope updates across services. Before that, parts of the workflow were more manual. Moving to a pub-sub style flow helped the system react more automatically and reduced operational overhead.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Tell me about your Amazon internship project.</h3>
+          <p><strong>Structure:</strong> one clear project, what you built, why it mattered.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>At Amazon I worked on a distributed backend workflow system and built a modular plugin that published merchant contribution entities through SNS. That helped downstream systems consume the data in a more scalable way and supported the team’s longer-term move toward more decoupled workflows.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Why did the team use SNS?</h3>
+          <p><strong>Structure:</strong> what needed to be shared, why decoupling helped, why it scaled better.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>SNS was useful because it let the system publish events in a way that downstream consumers could handle independently. That made the workflow more decoupled and more scalable than tighter service-to-service coupling.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Why are you interested in this role?</h3>
+          <p><strong>Structure:</strong> tie role to your background, tie it to where you want to grow, keep it forward-looking.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>I’m interested in this role because it matches the kind of backend work I’ve been doing and want to keep growing in, especially around distributed systems, APIs, and production engineering. I’m looking for a team where I can contribute to real backend systems while continuing to deepen my system design and reliability skills.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Why are you interested in our company?</h3>
+          <p><strong>Structure:</strong> team or engineering culture, product or problem space, and why it fits your background.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>What stands out to me is the combination of the engineering work and the team. From what I’ve learned so far, this role feels strongly aligned with my background in backend systems, APIs, and production reliability, and it seems like the kind of environment where I could contribute and keep growing.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>What kind of work energizes you the most?</h3>
+          <p><strong>Structure:</strong> mention 1 or 2 themes only, tie them to real work, keep it positive.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>The work that energizes me most is backend work where I can combine implementation with real system impact. At Zoom, I especially enjoyed projects that improved reliability, automated workflows, or made backend systems easier to operate.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>What kind of team or environment helps you do your best work?</h3>
+          <p><strong>Structure:</strong> communication, ownership, and clarity.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>I do my best work on teams where people communicate clearly, have strong ownership, and care about building reliable systems. I’ve found that I work especially well in environments where expectations are clear and engineers are trusted to improve both features and the underlying system.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Looking back at your recent experience, what do you want to do more of in your next role?</h3>
+          <p><strong>Structure:</strong> connect to strengths, say what you want more of, keep it positive.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>In my next role, I’d like to do more backend platform and production-facing work, especially around distributed systems, APIs, reliability, and system design. My recent experience helped me realize that I really enjoy work where I can both build features and improve the long-term behavior of the system.</p>
+          </div>
+        </div>
       </div>
 
       <div class="section">
         <h2>AI-Related Questions</h2>
-        <ul>
-          <li>Have you used AI tools in your work or learning?</li>
-          <li>What parts of AI tools have been genuinely useful to you?</li>
-          <li>Where do you think AI tools are less helpful or less reliable?</li>
-          <li>If you were integrating an LLM API into a backend service, what would you think about?</li>
-        </ul>
+        <div class="qa">
+          <h3>Have you used AI tools in your work or learning?</h3>
+          <p><strong>Structure:</strong> yes in a practical way, where it helped, where you still verify carefully.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>Yes. I’ve found AI tools useful for speeding up repetitive work, exploring unfamiliar code, summarizing information, and giving me a starting point for implementation ideas. I still verify the output carefully, especially for production code and anything correctness-sensitive.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>What parts of AI tools have been genuinely useful to you?</h3>
+          <p><strong>Structure:</strong> repetitive work, unfamiliar code, summarization or starting point.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>The most useful part has been speeding up repetitive work, helping me understand unfamiliar code, and giving me a starting point for implementation ideas. I treat it as a helper, not something I trust blindly.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>Where do you think AI tools are less helpful or less reliable?</h3>
+          <p><strong>Structure:</strong> correctness-heavy areas, security-sensitive logic, subtle edge cases.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>I think AI tools are less reliable in situations where correctness matters a lot, especially in production logic, security-sensitive code, or areas with subtle edge cases. In those cases, I see them as useful for generating ideas or a starting point, but not as a source of truth.</p>
+          </div>
+        </div>
+
+        <div class="qa">
+          <h3>If you were integrating an LLM API into a backend service, what would you think about?</h3>
+          <p><strong>Structure:</strong> latency and failure handling, rate limits and cost, logging and privacy, fallback if the response is bad.</p>
+          <div class="answer">
+            <strong>Example answer:</strong>
+            <p>I would think about latency, retries, failure handling, rate limits, cost, logging, and data privacy. I would also think about what should happen if the model response is slow, incorrect, or unavailable, because in production the integration needs to be reliable even if the model is not.</p>
+          </div>
+        </div>
       </div>
     </div>
   </body>
