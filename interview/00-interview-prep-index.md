@@ -26,6 +26,9 @@ The candidate should always explain:
 Related object reference:
 - [03-backend-object-fields.md](/Users/nana/Documents/nana/mock/interview/03-backend-object-fields.md)
 
+Medium practical coding questions:
+- [medium-coding-questions.txt](/Users/nana/Documents/nana/mock/interview/medium-coding-questions.txt)
+
 ## 3. Algorithm Notes
 
 See: [04-algorithm-notes.md](/Users/nana/Documents/nana/mock/interview/04-algorithm-notes.md)

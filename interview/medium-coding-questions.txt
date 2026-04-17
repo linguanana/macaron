@@ -1,0 +1,303 @@
+Medium Coding Questions
+
+Use this file when you want a question that is not too easy, but also not too algorithm-heavy.
+The goal is to test whether John can understand the backend scenario, define the right state, choose the right data structure, and write clean logic.
+
+
+Before Coding Reminder
+
+Before writing code, ask him to explain:
+1. what classes or functions he needs
+2. what fields each object should have
+3. what data structure he will use
+4. what the flow of the solution is
+
+
+Recommended Order
+
+1. API Rate Limiter
+2. Webhook Retry Queue
+3. Login Token Cleaner
+4. Request Deduplicator
+
+If you want the safest medium question, use API Rate Limiter.
+If you want a stronger backend signal, use Webhook Retry Queue.
+
+
+========================================
+1. API Rate Limiter
+========================================
+
+Why this is good:
+- medium difficulty
+- practical backend scenario
+- tests hashmap + queue/deque + sliding window
+- good follow-up after Login Failure Tracker
+
+What to say:
+
+Please implement a simple per-user rate limiter.
+
+Support:
+- allowRequest(userId, timestamp)
+
+Rule:
+- each user can make at most 3 requests in any 10-second window
+- return true if allowed, false otherwise
+
+
+Example:
+
+allowRequest("u1", 1) = true
+allowRequest("u1", 2) = true
+allowRequest("u1", 3) = true
+allowRequest("u1", 4) = false
+allowRequest("u1", 12) = true
+
+
+What good answers should include:
+- hashmap keyed by userId
+- value is a queue/deque/list of request timestamps
+- remove old timestamps outside the 10-second window
+- if remaining count is already 3, reject
+- otherwise add current timestamp and allow
+
+
+Expected flow:
+
+allowRequest(userId, timestamp):
+1. get this user's timestamp queue
+2. remove timestamps where timestamp - oldestTimestamp >= 10, depending on how the window is defined
+3. if queue size >= 3, return false
+4. append current timestamp
+5. return true
+
+
+Hints:
+- What state do you need to remember for each user?
+- Do old requests outside the window still matter?
+- What data structure helps remove old timestamps from the front?
+
+
+Follow-up:
+- What is the time and space complexity?
+- What if this runs on multiple servers?
+- What if the limit is per API key instead of per user?
+- How would you clean up inactive users?
+
+
+Expected complexity:
+- Time: O(1) amortized per request
+- Space: O(U * L), where U is number of active users and L is max requests stored per user inside the window
+
+
+========================================
+2. Webhook Retry Queue
+========================================
+
+Why this is good:
+- medium to medium-plus
+- practical backend scheduling problem
+- tests min-heap and state modeling
+- more realistic than a pure LeetCode heap question
+
+What to say:
+
+Please implement a simple webhook retry manager.
+
+Support:
+- addFailedEvent(eventId, nextRetryTime)
+- getReadyEvents(currentTime)
+- markDelivered(eventId)
+
+Behavior:
+- getReadyEvents(currentTime) should return all failed events whose retry time is ready
+- once an event is delivered, it should not be returned again
+
+
+Example:
+
+addFailedEvent("e1", 10)
+addFailedEvent("e2", 20)
+getReadyEvents(15) = ["e1"]
+markDelivered("e1")
+getReadyEvents(25) = ["e2"]
+
+
+What good answers should include:
+- min-heap ordered by nextRetryTime
+- eventId stored with each heap entry
+- getReadyEvents pops while heap top is ready
+- a map or set can track delivered events / active events
+
+
+Expected flow:
+
+addFailedEvent(eventId, nextRetryTime):
+1. add event to heap as (nextRetryTime, eventId)
+2. optionally store event state in a map
+
+getReadyEvents(currentTime):
+1. while heap is not empty and heap top time <= currentTime
+2. pop event
+3. skip it if already delivered
+4. otherwise add to result
+
+markDelivered(eventId):
+1. mark event as delivered in a set/map
+
+
+Hints:
+- What data structure gives you the earliest retry first?
+- Do you need to scan every event?
+- How do you avoid returning an event that was already delivered?
+
+
+Follow-up:
+- What if retries need exponential backoff?
+- What if there are duplicate eventIds?
+- What if this service restarts?
+- What if multiple workers call getReadyEvents at the same time?
+
+
+Expected complexity:
+- addFailedEvent: O(log N)
+- getReadyEvents: O(R log N), where R is number of ready events returned
+- markDelivered: O(1)
+
+
+========================================
+3. Login Token Cleaner
+========================================
+
+Why this is good:
+- medium
+- practical auth/backend state problem
+- tests hashmap + heap tradeoff
+- easier than Webhook Retry Queue, but stronger than plain Token Manager
+
+What to say:
+
+Please implement a token cleaner.
+
+Support:
+- addToken(tokenId, expiryTime)
+- isValid(tokenId, currentTime)
+- cleanupExpired(currentTime)
+
+Behavior:
+- isValid returns true only if the token exists and has not expired
+- cleanupExpired should remove all expired tokens
+
+
+Example:
+
+addToken("t1", 100)
+isValid("t1", 50) = true
+isValid("t1", 100) = false
+cleanupExpired(100)
+isValid("t1", 101) = false
+
+
+What good answers should include:
+- hashmap for fast lookup by tokenId
+- basic version can scan all tokens in cleanup
+- stronger version uses min-heap by expiryTime
+- understands why one data structure may not solve both lookup and cleanup efficiently
+
+
+Expected stronger flow:
+
+addToken(tokenId, expiryTime):
+1. store tokenId -> expiryTime in map
+2. push (expiryTime, tokenId) into min-heap
+
+isValid(tokenId, currentTime):
+1. if tokenId not in map, return false
+2. return currentTime < expiryTime
+
+cleanupExpired(currentTime):
+1. while heap top expiryTime <= currentTime
+2. pop token
+3. check map to make sure this heap entry is still current
+4. remove token from map if expired
+
+
+Hints:
+- What data structure is enough for isValid?
+- If cleanupExpired must be efficient, what should be ordered?
+- What if the same token is added again with a new expiry time?
+
+
+Follow-up:
+- How would this work with Redis?
+- How would cleanup run in the background?
+- What happens if expiry is updated after the old heap entry was inserted?
+
+
+Expected complexity:
+- addToken: O(log N)
+- isValid: O(1)
+- cleanupExpired: O(E log N), where E is number of expired tokens removed
+
+
+========================================
+4. Request Deduplicator
+========================================
+
+Why this is good:
+- lower-medium
+- practical API backend scenario
+- good if he is tired but you still want useful signal
+- tests state modeling and edge cases
+
+What to say:
+
+Please implement a request deduplicator for an API service.
+
+Support:
+- process(requestId, timestamp)
+
+Rule:
+- if the same requestId appears again within 30 seconds, ignore it and return false
+- otherwise accept it and return true
+
+
+Example:
+
+process("r1", 10) = true
+process("r1", 20) = false
+process("r1", 45) = true
+
+
+What good answers should include:
+- hashmap from requestId to last seen timestamp
+- compare current timestamp with last seen timestamp
+- update timestamp when accepted
+- discuss cleanup if map grows forever
+
+
+Expected flow:
+
+process(requestId, timestamp):
+1. if requestId not in map, store timestamp and return true
+2. if timestamp - lastSeen < 30, return false
+3. otherwise update timestamp and return true
+
+
+Hints:
+- What is the minimum information you need to store per requestId?
+- How do you decide whether the new request is duplicate?
+- If the map keeps growing, how might you clean it up?
+
+
+Follow-up:
+- What if request timestamps arrive out of order?
+- What if deduplication needs to work across many servers?
+- What if accepted requests must be idempotent?
+
+
+Expected complexity:
+- Time: O(1)
+- Space: O(number of active requestIds)
+
