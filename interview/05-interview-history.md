@@ -15,6 +15,19 @@ Coding Questions:
 - Merge Logs from N Servers
 - Login Failure Tracker
 
+Exact prompt for Login Failure Tracker:
+
+Please implement a login failure tracker.
+
+Support these operations:
+- recordFailure(userId, timestamp)
+- recordSuccess(userId)
+- isLocked(userId, timestamp)
+
+Rule:
+- if a user has 5 failed login attempts within a 10-minute window, the account is locked
+- a successful login resets the failure count
+
 ### 2026-04-10
 
 Speaking Questions:

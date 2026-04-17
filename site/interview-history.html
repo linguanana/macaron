@@ -40,6 +40,19 @@
           <li>Merge Logs from N Servers</li>
           <li>Login Failure Tracker</li>
         </ul>
+        <p><strong>Exact prompt for Login Failure Tracker</strong></p>
+        <p>Please implement a login failure tracker.</p>
+        <p>Support these operations:</p>
+        <ul>
+          <li>recordFailure(userId, timestamp)</li>
+          <li>recordSuccess(userId)</li>
+          <li>isLocked(userId, timestamp)</li>
+        </ul>
+        <p>Rule:</p>
+        <ul>
+          <li>if a user has 5 failed login attempts within a 10-minute window, the account is locked</li>
+          <li>a successful login resets the failure count</li>
+        </ul>
       </div>
       <div class="section">
         <h2>2026-04-10</h2>
