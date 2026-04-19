@@ -20,7 +20,7 @@ What to look for:
 - backend / distributed systems / APIs / OAuth
 - what he wants next
 
-### 2. Tell me about a production issue you debugged.
+### 2. Tell me about a (production or whatever) issue you debugged.
 
 What to look for:
 - symptom
@@ -241,4 +241,3 @@ This is important because many mistakes come from coding before the problem is f
 - Login Failure Tracker
 - Session Store
 - API Rate Limiter
-

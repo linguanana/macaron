@@ -29,6 +29,9 @@ Related object reference:
 Medium practical coding questions:
 - [medium-coding-questions.txt](/Users/nana/Documents/nana/mock/interview/medium-coding-questions.txt)
 
+NVIDIA-style practical medium questions:
+- [nvidia-style-medium-questions.txt](/Users/nana/Documents/nana/mock/interview/nvidia-style-medium-questions.txt)
+
 ## 3. Algorithm Notes
 
 See: [04-algorithm-notes.md](/Users/nana/Documents/nana/mock/interview/04-algorithm-notes.md)

@@ -60,6 +60,24 @@ Key Functions:
 
 ---
 
+## 6. Exponential Backoff (Retry Logic)
+Use when: A background task fails and needs to be retried without crashing the system.
+Logic: `delay = 2 ^ retry_count`.
+Common Examples:
+- Webhook retry queue.
+- Failed payment processing.
+
+## 7. Distributed Lock (Concurrency Control)
+Use when: Multiple servers want to update the same resource (e.g., User Balance).
+Logic:
+1. Acquire: `setnx lock_key unique_owner_id EX 30`
+2. Release: Only if `current_owner == my_owner_id`.
+Common Examples:
+- Inventory update in e-commerce.
+- Wallet balance transactions.
+
+---
+
 # 🛠️ BACKEND OBJECT FIELDS & LOGIC
 
 ## LogEntry
@@ -90,3 +108,6 @@ Key Functions:
 - O(1) Lookup? -> HashMap.
 - Already Sorted? -> K-Way Merge (don't re-sort!).
 - Deduplication? -> Request ID in a Map.
+
+
+---

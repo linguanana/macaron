@@ -1,0 +1,391 @@
+NVIDIA-Style Practical Medium Questions
+
+Use this file when you want questions that feel closer to common software interview categories, but still stay practical for backend / platform work.
+
+These are not meant to be very hard. They are medium questions that test whether John can:
+- understand the real scenario
+- define input and output
+- choose the right data structure
+- explain the flow clearly before coding
+- handle edge cases without overcomplicating
+
+
+Before Coding Reminder
+
+Before writing code, ask him to explain with a very clean short note:
+1. what classes or functions he needs
+2. what fields each object should have
+3. what data structure he will use
+4. what the flow of the solution is
+
+
+Recommended Order
+
+1. Service Dependency Impact
+2. API Rate Limiter
+3. Log Parser / Error Counter
+4. Idempotency Key Store
+5. Concurrent Job Runner
+
+If you want the best one for today, use Service Dependency Impact.
+It is graph-based, practical, and different from the recent heap-heavy questions.
+
+
+========================================
+1. Service Dependency Impact
+Category: Graphs / Trees
+========================================
+
+What to say:
+
+You are given service dependencies in a backend system.
+
+Each pair [A, B] means service A depends on service B.
+If service B goes down, service A may be affected.
+
+Implement:
+- getAffectedServices(dependencies, failedService)
+
+Return all services that are affected when failedService goes down.
+
+
+Example:
+
+dependencies = [
+  ["api", "auth"],
+  ["billing", "auth"],
+  ["checkout", "billing"],
+  ["web", "api"]
+]
+
+failedService = "auth"
+
+Output:
+["api", "billing", "checkout", "web"]
+
+
+Why:
+- api depends on auth
+- billing depends on auth
+- checkout depends on billing, so it is indirectly affected
+- web depends on api, so it is indirectly affected
+
+
+What good answers should include:
+- build a reverse graph
+- dependency -> services that depend on it
+- run BFS or DFS from failedService
+- use visited set to avoid cycles
+
+
+Expected flow:
+
+1. Create a graph:
+   B -> [A] if A depends on B
+2. Start from failedService
+3. BFS / DFS to find all services depending on it
+4. Return visited services, excluding the failed service itself
+
+
+Hints:
+- If B goes down, which services should we look up quickly?
+- Should the graph point from service to dependency, or dependency to affected services?
+- What happens if there is a cycle?
+
+
+Follow-up:
+- What if the dependency graph is very large?
+- What if you need to return services by distance from the failed service?
+- What if dependencies change frequently?
+
+
+Expected complexity:
+- Time: O(V + E)
+- Space: O(V + E)
+
+
+========================================
+2. API Rate Limiter
+Category: Stacks / Queues
+========================================
+
+What to say:
+
+Please implement a simple per-user rate limiter.
+
+Support:
+- allowRequest(userId, timestamp)
+
+Rule:
+- each user can make at most 3 requests in any 10-second window
+- return true if allowed, false otherwise
+
+
+Example:
+
+allowRequest("u1", 1) = true
+allowRequest("u1", 2) = true
+allowRequest("u1", 3) = true
+allowRequest("u1", 4) = false
+allowRequest("u1", 12) = true
+
+
+What good answers should include:
+- hashmap keyed by userId
+- value is queue/deque of request timestamps
+- remove timestamps outside the 10-second window
+- reject if there are already 3 requests in the current window
+
+
+Expected flow:
+
+1. Get this user's queue of timestamps
+2. Remove old timestamps from the front
+3. If queue size is already 3, return false
+4. Otherwise append current timestamp and return true
+
+
+Hints:
+- What state do you need to remember for each user?
+- Do old requests outside the window still matter?
+- What data structure helps remove old timestamps from the front?
+
+
+Follow-up:
+- What if this runs on multiple servers?
+- What if the limit is per API key instead of userId?
+- How would you clean up inactive users?
+
+
+Expected complexity:
+- Time: O(1) amortized per request
+- Space: O(active users * max requests per window)
+
+
+========================================
+3. Log Parser / Error Counter
+Category: Arrays / Strings
+========================================
+
+What to say:
+
+You are given a list of log lines.
+Each line has this format:
+
+timestamp serviceName level message
+
+Example:
+"100 auth ERROR token_expired"
+"101 billing INFO payment_started"
+"102 auth ERROR invalid_scope"
+
+Implement:
+- countErrorsByService(logLines)
+
+Return a map from serviceName to number of ERROR logs.
+
+
+Example:
+
+logs = [
+  "100 auth ERROR token_expired",
+  "101 billing INFO payment_started",
+  "102 auth ERROR invalid_scope",
+  "103 billing ERROR timeout"
+]
+
+Output:
+{
+  "auth": 2,
+  "billing": 1
+}
+
+
+What good answers should include:
+- split each log line
+- identify serviceName and level
+- count only lines where level == "ERROR"
+- use hashmap serviceName -> count
+
+
+Expected flow:
+
+1. Initialize empty map
+2. For each log line:
+   - split by space
+   - extract serviceName and level
+   - if level is ERROR, increment count
+3. Return map
+
+
+Hints:
+- Which field tells you the service?
+- Which field tells you whether it is an error?
+- What data structure helps count per service?
+
+
+Follow-up:
+- What if messages contain spaces?
+- What if log format is invalid?
+- What if logs are huge and streamed line by line?
+- How would you return top K services by errors?
+
+
+Expected complexity:
+- Time: O(N)
+- Space: O(S), where S is number of services
+
+
+========================================
+4. Idempotency Key Store
+Category: HashMap / State Machine / Concurrency
+========================================
+
+What to say:
+
+Please implement an idempotency key store for an API service.
+
+Support:
+- startRequest(key, requestHash, timestamp)
+- completeRequest(key, response, timestamp)
+- getResult(key, requestHash, timestamp)
+
+Behavior:
+- records expire after 24 hours
+- startRequest creates a new record if the key does not exist or has expired
+- if the key exists with the same requestHash, it should not create a new request
+- if the key exists with a different requestHash, it should return conflict
+- completeRequest stores the final response for a key
+- getResult returns the stored response if the request already completed
+
+
+What good answers should include:
+- map from key -> IdempotencyRecord
+- record fields:
+  - key
+  - requestHash
+  - status
+  - response
+  - createdAt or expiryTime
+- statuses:
+  - IN_PROGRESS
+  - COMPLETED
+
+
+Expected flow:
+
+startRequest:
+1. If key is missing or expired, create IN_PROGRESS record
+2. If key exists with different requestHash, return conflict
+3. If key exists with same requestHash, return duplicate / existing
+
+completeRequest:
+1. If key exists and requestHash matches, store response
+2. Mark status COMPLETED
+
+getResult:
+1. If key missing or expired, return None
+2. If requestHash differs, return conflict
+3. If COMPLETED, return response
+4. If IN_PROGRESS, return in_progress
+
+
+Hints:
+- What state do you need to store for each key?
+- How do you tell same request vs different request?
+- What statuses can a request have?
+
+
+Follow-up:
+- What if two requests with the same key arrive at the same time?
+- How would this work across multiple servers?
+- Would Redis SETNX or database transactions help?
+
+
+Expected complexity:
+- Time: O(1) average
+- Space: O(number of active keys)
+
+
+========================================
+5. Concurrent Job Runner
+Category: Concurrency
+========================================
+
+What to say:
+
+You are building a simple job runner.
+Each job has:
+- jobId
+- duration
+
+The runner can run at most maxWorkers jobs at the same time.
+
+Implement:
+- scheduleJobs(jobs, maxWorkers)
+
+Return the time when all jobs finish.
+
+
+Example:
+
+jobs = [
+  ["j1", 5],
+  ["j2", 2],
+  ["j3", 3],
+  ["j4", 4]
+]
+
+maxWorkers = 2
+
+Output:
+9
+
+Explanation:
+- at time 0, run j1 and j2
+- j2 finishes at time 2, start j3
+- j3 finishes at time 5, start j4
+- j1 also finishes at time 5
+- j4 finishes at time 9 if scheduled after j3
+
+Note:
+Depending on the scheduling rule, output can vary.
+Before coding, clarify whether jobs must run in input order or can be scheduled greedily.
+
+
+Simpler version:
+Assume jobs must be started in input order.
+
+
+What good answers should include:
+- min-heap of worker finish times
+- assign each job to the earliest available worker
+- if fewer than maxWorkers active jobs, start immediately
+- otherwise wait for earliest worker to finish
+
+
+Expected flow:
+
+1. Create min-heap of worker finish times
+2. For each job in input order:
+   - if heap size < maxWorkers, job starts at time 0
+   - else pop earliest finish time as start time
+   - push start time + duration
+3. Return max finish time from heap
+
+
+Hints:
+- What do you need to know to decide when the next worker is free?
+- What data structure gives you the earliest available worker?
+- If all workers are busy, which worker should take the next job?
+
+
+Follow-up:
+- What if jobs have priorities?
+- What if jobs depend on each other?
+- What if workers can fail?
+
+
+Expected complexity:
+- Time: O(N log W), where W is maxWorkers
+- Space: O(W)
