@@ -78,6 +78,56 @@ Common Examples:
 
 ---
 
+## 8. Binary Tree (DFS / BFS)
+Use when: Data is shaped like parent -> left child / right child.
+
+Common fields:
+- value
+- left
+- right
+
+Key idea:
+- A binary tree node has at most two children.
+- This is different from a graph, where a node can have many neighbors.
+
+DFS patterns:
+
+Preorder:
+1. visit node
+2. dfs(left)
+3. dfs(right)
+
+Inorder:
+1. dfs(left)
+2. visit node
+3. dfs(right)
+
+Postorder:
+1. dfs(left)
+2. dfs(right)
+3. visit node
+
+BFS pattern:
+1. put root in queue
+2. while queue is not empty:
+   - pop front
+   - visit node
+   - add left child if exists
+   - add right child if exists
+
+Common examples:
+- max depth of binary tree
+- check if tree is balanced
+- level order traversal
+- validate binary search tree
+- find a value in a tree
+
+Mental trigger:
+- If the problem says `left` and `right`, think binary tree.
+- If the problem says dependencies / neighbors / services, think graph.
+
+---
+
 # 🛠️ BACKEND OBJECT FIELDS & LOGIC
 
 ## LogEntry

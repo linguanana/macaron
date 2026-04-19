@@ -59,6 +59,30 @@
         <p><strong>Common Example:</strong> LRU Cache.</p>
       </div>
       <div class="section">
+        <h2>6. Exponential Backoff</h2>
+        <p>Use when a background task fails and needs to be retried later without crashing the system.</p>
+        <p><strong>Common Examples:</strong> Webhook retry queue, failed payment processing.</p>
+      </div>
+      <div class="section">
+        <h2>7. Distributed Lock</h2>
+        <p>Use when multiple servers may try to update the same resource at the same time.</p>
+        <p><strong>Common Examples:</strong> inventory update, wallet balance transaction.</p>
+      </div>
+      <div class="section">
+        <h2>8. Binary Tree (DFS / BFS)</h2>
+        <p>Use when data is shaped like parent → left child / right child.</p>
+        <p><strong>Common fields:</strong> value, left, right.</p>
+        <p><strong>Key idea:</strong> a binary tree node has at most two children. This is different from a graph, where a node can have many neighbors.</p>
+        <p><strong>DFS patterns:</strong></p>
+        <ul>
+          <li>Preorder: visit node, dfs(left), dfs(right)</li>
+          <li>Inorder: dfs(left), visit node, dfs(right)</li>
+          <li>Postorder: dfs(left), dfs(right), visit node</li>
+        </ul>
+        <p><strong>BFS pattern:</strong> put root in queue, pop front, visit node, add left and right children if they exist.</p>
+        <p><strong>Common Examples:</strong> max depth, level order traversal, validate binary search tree, find a value.</p>
+      </div>
+      <div class="section">
         <h2>Mental Triggers</h2>
         <ul>
           <li>Top K? → Heap</li>
@@ -66,6 +90,8 @@
           <li>O(1) lookup? → HashMap</li>
           <li>Already sorted? → K-Way Merge</li>
           <li>Deduplication? → Request ID in a Map</li>
+          <li>Left and right child? → Binary Tree</li>
+          <li>Dependencies / neighbors / services? → Graph</li>
         </ul>
       </div>
     </div>
