@@ -31,6 +31,291 @@ If you want the best one for today, use Service Dependency Impact.
 It is graph-based, practical, and different from the recent heap-heavy questions.
 
 
+Coverage Checklist
+
+This file should cover:
+- Graph BFS / DFS
+- Arrays / Strings
+- HashMap state modeling
+- Stacks / Queues
+- Concurrency basics
+- System design-lite follow-ups
+- Debugging / production story prompts
+
+What is not covered deeply here:
+- Dynamic Programming
+- Low-level C++ / CUDA / driver work
+- Hardware / RTL / Verilog
+
+For backend / platform roles, this is a reasonable practical prep set.
+For low-level systems roles, add C++, OS, concurrency, memory, and performance questions.
+
+
+========================================
+Quick System Design-Lite Follow-ups
+========================================
+
+Use these after any coding question if he finishes early or if you want to test backend maturity.
+
+1. How would this work across multiple servers?
+
+Good answer should mention:
+- in-memory state is not enough across servers
+- use shared storage like Redis or database
+- think about atomic operations
+- avoid race conditions
+
+
+2. What shared storage would you use?
+
+Good answer should mention:
+- Redis for fast TTL / counters / rate limits
+- database for stronger durability
+- tradeoff between speed, durability, and consistency
+
+
+3. What if two requests happen at the same time?
+
+Good answer should mention:
+- race condition
+- need lock, transaction, compare-and-set, or atomic insert
+- Redis SETNX / database unique constraint can help
+
+
+4. How would you monitor this system?
+
+Good answer should mention:
+- request count
+- error count
+- latency
+- queue size or backlog
+- retry count
+- dropped / rejected requests
+
+
+5. What failure modes would you care about?
+
+Good answer should mention:
+- duplicate processing
+- lost events
+- stale state
+- retry storm
+- downstream dependency failure
+- memory growth
+
+
+========================================
+Debugging / Production Story Prompts
+========================================
+
+Use these before coding or after coding.
+
+1. Tell me about an issue you handled.
+
+Expected structure:
+1. symptom
+2. investigation
+3. root cause
+4. fix
+5. prevention / visibility improvement
+
+
+2. How do you usually debug distributed issues?
+
+Expected structure:
+1. start with user-visible symptom
+2. check logs / metrics / dashboards
+3. narrow down service boundary
+4. check dependencies
+5. validate the hypothesis before fixing
+
+
+3. What would you do if API latency suddenly spikes?
+
+Expected structure:
+1. check scope and impact
+2. check dashboards and recent deploys
+3. compare error rate, latency, traffic, dependency health
+4. mitigate first if needed
+5. do root cause analysis after service is stable
+
+
+4. How do you decide whether to roll back?
+
+Expected structure:
+1. check if issue started after deploy
+2. check severity and customer impact
+3. compare rollback risk vs keeping bad release
+4. communicate clearly
+5. validate after rollback
+
+
+5. What makes logs useful during an incident?
+
+Expected answer should mention:
+- request id / trace id
+- service name
+- error code
+- timestamp
+- structured fields
+- enough context to connect events across services
+
+
+========================================
+Extra Coding Prompts by Category
+========================================
+
+Use these if you want one more question in a specific area.
+
+
+----------------------------------------
+A. Graph BFS / DFS: Service Dependency Levels
+----------------------------------------
+
+What to say:
+
+You are given service dependencies.
+Each pair [A, B] means service A depends on service B.
+
+Implement:
+- getAffectedServiceLevels(dependencies, failedService)
+
+Return affected services grouped by distance from the failed service.
+
+
+Example:
+
+dependencies = [
+  ["api", "auth"],
+  ["billing", "auth"],
+  ["checkout", "billing"],
+  ["web", "api"]
+]
+
+failedService = "auth"
+
+Output:
+[
+  ["api", "billing"],
+  ["web", "checkout"]
+]
+
+
+Expected direction:
+- build reverse graph
+- use BFS level order traversal
+- visited set
+
+
+----------------------------------------
+B. Arrays / Strings: Parse Latency Logs
+----------------------------------------
+
+What to say:
+
+You are given log lines in this format:
+
+timestamp serviceName latencyMs
+
+Implement:
+- averageLatencyByService(logLines)
+
+Return a map from serviceName to average latency.
+
+
+Example:
+
+logs = [
+  "100 auth 30",
+  "101 billing 50",
+  "102 auth 70"
+]
+
+Output:
+{
+  "auth": 50,
+  "billing": 50
+}
+
+
+Expected direction:
+- parse string
+- map service -> total latency
+- map service -> count
+- return average
+
+
+----------------------------------------
+C. HashMap State Modeling: API Quota Tracker
+----------------------------------------
+
+What to say:
+
+Please implement an API quota tracker.
+
+Support:
+- setQuota(userId, limit)
+- recordUsage(userId, amount)
+- getRemainingQuota(userId)
+
+Behavior:
+- usage should reduce remaining quota
+- remaining quota should not go below 0
+- if user has no quota record, remaining quota is 0
+
+
+Expected direction:
+- map userId -> quota limit
+- map userId -> used amount
+- or one UserQuotaRecord with limit and used
+
+
+----------------------------------------
+D. Stacks / Queues: Recent Error Window
+----------------------------------------
+
+What to say:
+
+Please implement a recent error tracker.
+
+Support:
+- recordError(serviceName, timestamp)
+- getRecentErrorCount(serviceName, currentTime)
+
+Behavior:
+- only count errors in the last 5 minutes
+
+
+Expected direction:
+- map serviceName -> queue/deque of timestamps
+- remove old timestamps before counting
+
+
+----------------------------------------
+E. Concurrency Basics: Lock Manager
+----------------------------------------
+
+What to say:
+
+Please implement a simple lock manager.
+
+Support:
+- acquireLock(resourceId, ownerId)
+- releaseLock(resourceId, ownerId)
+- getOwner(resourceId)
+
+Behavior:
+- acquireLock returns true if the resource is free
+- returns false if another owner already holds the lock
+- only the current owner can release the lock
+
+
+Expected direction:
+- map resourceId -> ownerId
+- discuss race conditions as follow-up
+- across multiple servers, use Redis / database / distributed lock
+
+
 ========================================
 1. Service Dependency Impact
 Category: Graphs / Trees
