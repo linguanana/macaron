@@ -2,12 +2,34 @@ NVIDIA-Style Practical Medium Questions
 
 Use this file when you want questions that feel closer to common software interview categories, but still stay practical for backend / platform work.
 
-These are not meant to be very hard. They are medium questions that test whether John can:
+These are for a junior software engineer interview.
+They should not feel like senior system design questions.
+
+The main goal is to test whether John can:
 - understand the real scenario
 - define input and output
 - choose the right data structure
 - explain the flow clearly before coding
 - handle edge cases without overcomplicating
+
+
+Junior Software Engineer Focus
+
+For junior roles, prioritize:
+- clean problem understanding
+- correct basic data structure
+- readable code
+- simple edge cases
+- time / space complexity
+- ability to explain choices clearly
+
+Do not over-focus on:
+- large-scale distributed architecture
+- deep concurrency implementation
+- CUDA / GPU / hardware-specific topics
+- perfect production design
+
+System design-lite questions should be used only as short follow-ups, not as the main evaluation.
 
 
 Before Coding Reminder
@@ -38,8 +60,8 @@ This file should cover:
 - Arrays / Strings
 - HashMap state modeling
 - Stacks / Queues
-- Concurrency basics
-- System design-lite follow-ups
+- Concurrency basics as follow-up
+- System design-lite as follow-up
 - Debugging / production story prompts
 
 What is not covered deeply here:
@@ -47,15 +69,17 @@ What is not covered deeply here:
 - Low-level C++ / CUDA / driver work
 - Hardware / RTL / Verilog
 
-For backend / platform roles, this is a reasonable practical prep set.
-For low-level systems roles, add C++, OS, concurrency, memory, and performance questions.
+For junior backend / platform roles, this is a reasonable practical prep set.
+For low-level systems roles, add basic C++, OS, memory, and concurrency questions.
 
 
 ========================================
 Quick System Design-Lite Follow-ups
 ========================================
 
-Use these after any coding question if he finishes early or if you want to test backend maturity.
+Use these after any coding question if he finishes early.
+For junior interviews, ask only 1 or 2 of these.
+Do not turn this into a full system design interview.
 
 1. How would this work across multiple servers?
 
