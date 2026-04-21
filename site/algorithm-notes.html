@@ -83,6 +83,69 @@
         <p><strong>Common Examples:</strong> max depth, level order traversal, validate binary search tree, find a value.</p>
       </div>
       <div class="section">
+        <h2>9. Two Pointers (The Index Walker)</h2>
+        <p>Use for sorted arrays, palindrome checks, pair problems, and merging two streams.</p>
+        <p><strong>Common patterns:</strong> opposite ends moving inward, fast/slow pointers moving in the same direction, and two-input merge traversal.</p>
+        <p><strong>Template:</strong> <code>left = 0</code>, <code>right = n - 1</code>, then move one or both pointers based on conditions.</p>
+      </div>
+      <div class="section">
+        <h2>10. Prefix Sum (The Range Sum Accelerator)</h2>
+        <p>Use when you need repeated range-sum queries over an array.</p>
+        <p><strong>Key idea:</strong> <code>prefix[i] = nums[0] + ... + nums[i]</code>.</p>
+        <p><strong>Subarray sum:</strong> sum of <code>i..j</code> is <code>prefix[j] - prefix[i - 1]</code> (if <code>i &gt; 0</code>).</p>
+      </div>
+      <div class="section">
+        <h2>11. Linked List Core Moves</h2>
+        <p>Use for pointer manipulation and in-place structural updates.</p>
+        <ul>
+          <li>Insert after prev: <code>node.next = prev.next; prev.next = node</code></li>
+          <li>Delete after prev: <code>prev.next = prev.next.next</code></li>
+          <li>Fast/slow pointers: middle node, cycle detection, split-list tasks</li>
+          <li>Reverse list iteratively: track <code>prev</code>, <code>curr</code>, <code>next</code></li>
+        </ul>
+      </div>
+      <div class="section">
+        <h2>12. Monotonic Stack / Queue</h2>
+        <p>Use for next greater/smaller element and window max/min patterns.</p>
+        <ul>
+          <li>Increasing stack: pop while top <code>&gt;= current</code></li>
+          <li>Decreasing stack: pop while top <code>&lt; current</code></li>
+          <li>Amortized O(n): each element is pushed/popped at most once</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h2>13. Graph Essentials (DFS / BFS)</h2>
+        <p>Use for connectivity, components, and shortest path in unweighted graphs.</p>
+        <p><strong>Representations:</strong> edge list, adjacency list, adjacency matrix, and matrix-as-graph (grid problems).</p>
+        <p><strong>Core rules:</strong> always track <code>seen/visited</code>; use BFS for shortest path in unweighted graphs.</p>
+      </div>
+      <div class="section">
+        <h2>14. Binary Search (Boundaries Matter)</h2>
+        <p>Use on sorted search space or monotonic true/false conditions.</p>
+        <p><strong>Standard:</strong> compare at <code>mid</code>, shrink left/right boundary, return insertion point if not found.</p>
+        <p><strong>Duplicates:</strong> for leftmost target, shrink right on <code>&gt;=</code>; for rightmost insertion, shrink right only on <code>&gt;</code>.</p>
+      </div>
+      <div class="section">
+        <h2>15. Backtracking (Build + Undo)</h2>
+        <p>Use to enumerate combinations, permutations, or subsets.</p>
+        <ol>
+          <li>Choose a candidate</li>
+          <li>Recurse</li>
+          <li>Undo the choice</li>
+        </ol>
+      </div>
+      <div class="section">
+        <h2>16. Dynamic Programming (State + Transition)</h2>
+        <p>Use when subproblems overlap and optimal substructure exists.</p>
+        <ul>
+          <li>Define state meaning (<code>dp[i]</code> or <code>dp[state]</code>)</li>
+          <li>Define recurrence (transition)</li>
+          <li>Define base cases</li>
+          <li>Pick top-down (memoization) or bottom-up (tabulation)</li>
+        </ul>
+        <p><strong>Example recurrence:</strong> Min Cost Climbing Stairs: <code>dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2])</code>.</p>
+      </div>
+      <div class="section">
         <h2>Mental Triggers</h2>
         <ul>
           <li>Top K? → Heap</li>

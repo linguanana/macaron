@@ -161,3 +161,144 @@ Mental trigger:
 
 
 ---
+
+## 9. Two Pointers (The "Index Walker")
+Use: Sorted arrays, palindrome checks, pair problems, and merging two streams.
+
+Common patterns:
+- Opposite ends: `left = 0`, `right = n - 1`, move inward.
+- Same direction (fast/slow): compact arrays or detect cycles.
+- Two inputs: move pointer in one/both lists until both are exhausted.
+
+Template:
+```python
+left, right = 0, len(arr) - 1
+while left < right:
+    # problem-specific logic
+    # move left, right, or both
+```
+
+---
+
+## 10. Prefix Sum (The "Range Sum Accelerator")
+Use: Frequent subarray sum queries.
+
+Key idea:
+- `prefix[i] = nums[0] + ... + nums[i]`
+- Sum of subarray `i..j` = `prefix[j] - prefix[i - 1]` (if `i > 0`)
+
+Template:
+```python
+prefix = [nums[0]]
+for i in range(1, len(nums)):
+    prefix.append(prefix[-1] + nums[i])
+```
+
+---
+
+## 11. Linked List Core Moves
+Use: Pointer manipulation, in-place structural updates.
+
+Singly linked list:
+- Insert after `prev`: `node.next = prev.next; prev.next = node`
+- Delete after `prev`: `prev.next = prev.next.next`
+
+Fast/slow pointer:
+- Middle node, cycle detection, split list problems.
+
+Reverse list (iterative):
+```python
+prev, curr = None, head
+while curr:
+    nxt = curr.next
+    curr.next = prev
+    prev, curr = curr, nxt
+head = prev
+```
+
+---
+
+## 12. Monotonic Stack / Queue
+Use: Next greater/smaller element, window max/min, stock-span style problems.
+
+Rules:
+- Increasing stack: pop while top `>= current`.
+- Decreasing stack: pop while top `< current`.
+- Although nested loops appear, total is O(n) amortized.
+
+---
+
+## 13. Graph Essentials (DFS/BFS)
+Use: Connectivity, components, shortest path in unweighted graphs.
+
+Representations:
+- Edge list
+- Adjacency list (most common in interviews)
+- Adjacency matrix
+- Matrix-as-graph (grid problems)
+
+Core rules:
+- Always track `seen`/`visited` to avoid revisits.
+- DFS explores deep; BFS explores level-by-level.
+- Use BFS for shortest path in unweighted graphs.
+
+---
+
+## 14. Binary Search (Boundaries Matter)
+Use: Sorted search space or monotonic condition.
+
+Standard search:
+```python
+left, right = 0, len(arr) - 1
+while left <= right:
+    mid = (left + right) // 2
+    if arr[mid] == target:
+        return mid
+    if arr[mid] > target:
+        right = mid - 1
+    else:
+        left = mid + 1
+return left  # insertion point
+```
+
+Duplicate-aware variants:
+- Leftmost position: shrink right when `arr[mid] >= target`.
+- Rightmost insertion point: shrink right only when `arr[mid] > target`.
+
+---
+
+## 15. Backtracking (Build + Undo)
+Use: Enumerate all valid combinations/permutations/subsets.
+
+Pattern:
+1. Choose
+2. Recurse
+3. Undo choice
+
+Skeleton:
+```python
+def backtrack(curr):
+    if base_case:
+        ans.append(curr.copy())
+        return
+    for choice in choices:
+        apply(choice, curr)
+        backtrack(curr)
+        undo(choice, curr)
+```
+
+---
+
+## 16. Dynamic Programming (State + Transition)
+Use: Overlapping subproblems + optimal substructure.
+
+Checklist:
+- Define state: what does `dp[i]` (or `dp[state]`) mean?
+- Define recurrence: how current answer comes from smaller states.
+- Define base cases.
+- Choose top-down (memoization) or bottom-up (tabulation).
+
+Example idea:
+- Min Cost Climbing Stairs:
+  - `dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2])`
+
